@@ -1,0 +1,42 @@
+<div *ngIf="userData">
+    Usuarios que <a [routerLink]="['/u', userData.id]">{{ userData.name }}</a> sigue
+</div>
+<div class="card text-center">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/followeds', userId]">Siguiendo</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/followers', userId]">Seguidores</a>
+        </li>
+      </ul>
+    </div>
+    <div class="card-body">
+    <!-- Siguiendo -->
+    <ul class="list-group list-group-flush" *ngIf="follow && follow.length > 0">
+        <li class="list-group-item search-list-item mb-1" *ngFor="let f of follow">
+            <div class="d-flex">
+                    <img [src]="avatar+f.person.avatar" class="rounded-circle" width="50px" alt="">
+                    <div class="search-user-container">
+                    <div>
+                        <a [routerLink]="['/u', f.person.id ]">{{ f.person.name }} {{ f.person.lastname }}</a>
+                    </div>
+                        <span>@{{ f.person.username }}</span>
+                    </div>
+
+            </div>
+            <div>
+              <button class="btn btn-danger" *ngIf="userId === auth.id" (click)="unfollow(f.followed)">Dejar seguir</button>
+            </div>
+        </li>
+        <li *ngIf="viewMore" >
+            <button class="btn btn-link btn-block" (click)="loadFollowed()">Ver más</button>
+        </li>
+    </ul>
+
+    <div *ngIf="!follow || follow.length <= 0">
+        Aún no ha seguido a nadie
+    </div>
+</div>
+</div>

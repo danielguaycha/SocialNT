@@ -1,0 +1,20 @@
+<div class="card-footer">
+  <div class="reactions-content">
+    <div class="reactions">
+      <button class="btn btn-sm" data-toggle="modal"
+              (click)="loadReactionsChild()"
+              [attr.data-target]="'#reactionsModal'+pubId">
+        {{ reactions }}
+      </button>
+      <button class="btn" (click)="addReaction()" >❤️Like</button>
+    </div>
+    <div class="comments">
+      <button class="btn" (click)="loadComments()">🗨️ Comentar</button>
+    </div>
+  </div>
+</div>
+<app-comment [pubId]="pubId" type="pub" [showed]="showComments"></app-comment>
+<app-view-reactions [pubId]="pubId" type="pub"></app-view-reactions>
+
+
+

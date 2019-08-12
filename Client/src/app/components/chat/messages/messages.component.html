@@ -1,0 +1,46 @@
+<div class="messages-content">
+  <div class="card">
+    <div class="card-header" *ngIf="selectedUser">
+      <div class="d-flex align-items-center">
+        <img src="{{ avatarUrl+selectedUser.avatar}}" width="40px" class="mr-2">
+        <div>
+          <a [routerLink]="['/u', selectedUser.id ]">
+            {{ selectedUser.name }} {{ selectedUser.lastname }}
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="card-body" id="message-content">
+      <div *ngFor="let m of messagesList">
+        <div [class]="'mb-2 d-flex align-items-center '+(m.emitter === auth.id? 'justify-content-end': '')">
+          <div class="mr-2">
+            <img alt="" src="{{ avatarUrl+m.user_emitter.avatar }}" width="40px" class="rounded-circle">
+          </div>
+          <div *ngIf="m.emitter === auth.id">
+            <div class=" text-center rounded bg-secondary p-2 pl-3 pr-3 text-white" [innerHTML]="m.text">
+
+            </div>
+            <small class="msg-date  float-right">{{ m.created_at | amParseZone  |amTimeAgo}}</small>
+          </div>
+          <div *ngIf="m.emitter !== auth.id">
+            <div class="text-center rounded bg-primary py-2 pl-2 pr-2 text-white" [innerHTML]="m.text" >
+            </div>
+            <small class="msg-date">{{ m.created_at | amParseZone  |amTimeAgo}}</small>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <form #sendMessageForm="ngForm" (ngSubmit)="sendMessage(sendMessageForm)" class="form-group d-flex">
+        <input type="text"
+               class="form-control"
+               name="text" required
+               #text="ngModel"
+               [(ngModel)]="message.text"
+               placeholder="Ingrese un mensaje">
+        <button type="submit" [disabled]="!sendMessageForm.form.valid">Enviar</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+.img-product {
+    height: 200px;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: cover !important;
+    background-color: #d1e1ed !important;
+}
+.market-content {
+    position: relative;
+}
+
+.market-shared-buttons button:hover, .market-shared-buttons a:hover{
+    background: rgba(0, 0, 0, .4)
+}
+.market-shared-buttons {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, .4), rgba(0, 0, 0, 0));
+}
+.market-shared-buttons.active {
+    display: flex !important;
+}
+
+.market-info {
+    display: flex;
+    justify-content: space-between;
+}

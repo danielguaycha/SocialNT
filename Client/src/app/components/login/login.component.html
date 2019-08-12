@@ -1,0 +1,29 @@
+<div class="card">
+    <div class="card-header">
+        Login
+    </div>
+    <div class="card-body">
+        <form action="" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+            <input type="email" 
+                name="email"
+                #email="ngModel"
+                [(ngModel)]="user.email" required
+                placeholder="Correo Electrónico" class="form-control">
+            <br>
+            <input type="password"
+                    name="password"
+                    #password="ngModel"
+                    [(ngModel)]="user.password"  required
+                    placeholder="Ingrese Contraseña" class="form-control">
+            <br>
+            <spiner [loader]="loader"></spiner>
+            <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid">Iniciar Sesion</button>
+        </form>
+    </div>
+    <div class="card-footer">
+        <div>
+            No tienes una cuenta? 
+            <a routerLink="/register"> Registrate</a>
+        </div>
+    </div>
+</div>

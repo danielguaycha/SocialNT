@@ -1,0 +1,32 @@
+
+<div class="card">
+      <div class="card-header">
+        Buscar Usuarios
+      </div>
+      <ul class="list-group list-group-flush" *ngIf="users && users.length>0; else elseUser">
+        <li class="list-group-item search-list-item mb-1" *ngFor="let u of users">
+            <div class="d-flex">
+                  <img [src]="avatarUrl+u.avatar" class="rounded-circle" width="50px">
+                  <div class="search-user-container">
+                    <div>
+                      <small *ngIf="auth.id === u.id">Tú: &nbsp;</small>
+                      <a [routerLink]="['/u', u.id ]">{{ u.name }} {{ u.lastname }}</a>
+                    </div>
+                      <span>@{{ u.username }}</span>
+                  </div>
+            </div>
+            <div *ngIf="!u.isFollow && auth.id !== u.id">
+                <button class="btn btn-primary" (click)="follow(u.id)">Seguir</button>
+            </div>
+            <div *ngIf="u.isFollow && auth.id !== u.id">
+              <button class="btn btn-danger" (click)="unfollow(u.id)">Dejar seguir</button>
+            </div>
+        </li>
+      </ul>
+      <ng-template #elseUser>
+          <div class="p-2">
+            No existen coindicencias
+          </div>
+      </ng-template>
+
+</div>

@@ -1,0 +1,20 @@
+
+
+<div>
+    <h6>Tus notificaciones</h6>
+    <ul class="notifies">
+        <li *ngFor="let n of notifies">
+            <a [routerLink]="['/u', n.fromUser.id]">
+                <img [src]="avatarUrl+n.fromUser.avatar" width="40px">
+            </a>
+            <div>
+                <a routerLink="{{n.url}}"><div [innerHTML]="n.description"></div></a>
+                <small class="text-muted">{{ n.created_at | amTimeAgo }}</small>
+            </div>
+        </li>
+    </ul>
+    <div>
+        <spiner [loader]="loader"></spiner>
+        <button class="btn btn-link btn-block" (click)="getNotifications()" *ngIf="!loader && showMore">Ver más</button>
+    </div>
+</div>

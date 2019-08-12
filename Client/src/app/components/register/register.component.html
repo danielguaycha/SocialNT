@@ -1,0 +1,58 @@
+<div class="alert alert-{{type}}" role="alert" *ngIf="message">
+    {{ message }}
+</div>
+<div class="card">
+        <div class="card-header">
+            Register
+        </div>
+        <div class="card-body">
+            <form action="" #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+                <input type="text" 
+                        name="name"
+                        #name="ngModel"
+                        [(ngModel)]="user.name"
+                        required placeholder="Ingrese Nombre" class="form-control">
+                <br>
+                <input type="text" 
+                        name="lastname"
+                        #lastname="ngModel"
+                        [(ngModel)]="user.lastname" required
+                        placeholder="Ingrese Apellido" class="form-control">
+                <br>
+                <input type="email"
+                        name="email"
+                        #email="ngModel"
+                        [(ngModel)]="user.email" required
+                        placeholder="Correo Electrónico" class="form-control">
+                <br>
+                <input type="text" 
+                        name="username"
+                        #username="ngModel"
+                        [(ngModel)]="user.username" required
+                        placeholder="Ingrese un Usuario" class="form-control">
+                <br>
+                <input type="password"
+                        name="password"
+                        #password="ngModel"
+                        [(ngModel)]="user.password" required
+                        placeholder="Ingrese Contraseña" class="form-control">
+                <br>               
+                <select name="genero"
+                        #genero="ngModel"
+                        [(ngModel)]="user.genero" required
+                        class="form-control">
+                    <option value="F">Femenino</option>
+                    <option value="M">Masculino</option>
+                </select><br>
+                <button type="submit" class="btn btn-primary" [disabled]="!registerForm.form.valid">Registrarme</button>
+            </form>
+        </div>
+        <div class="card-footer">
+            <div>
+                Ya tienes cuenta? 
+                <a routerLink="/login"> Iniciar Sesion</a>
+            </div>
+        </div>
+    </div>
+    
+

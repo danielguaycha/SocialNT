@@ -1,0 +1,29 @@
+<form class="card" #publicationForm="ngForm" (ngSubmit)="addPublication(publicationForm)" enctype="multipart/form-data">
+    <div class="card-header">
+        <div>Crear Publicación</div>
+    </div>
+    <div class="card-body">
+                        <textarea name="text"
+                                  #text="ngModel"
+                                  [(ngModel)]="publication.text"
+                                  required
+                                  placeholder="Que estas pensando?" class="form-control"
+                                  id="text" cols="30" rows="2"></textarea>
+        <div id="images" class="images mt-2">
+            <img [src]="imgUrl" alt="" *ngIf="imgUrl" height="100px">
+        </div>
+    </div>
+    <div class="card-footer d-flex justify-content-between align-items-center">
+        <label class="input-file">
+            <b class="btn btn-secondary btn-sm">Foto</b>
+            <input type="file"
+                   name="image"
+                   #image="ngModel"
+                   (change)="previewImage($event)"
+                   [(ngModel)]="publication.image"
+                   accept='image/*'
+                   class="fileInput" multiple>
+        </label>
+        <button class="btn btn-primary btn-sm" type="submit">Publicar</button>
+    </div>
+</form>

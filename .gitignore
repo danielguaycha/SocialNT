@@ -1,0 +1,8 @@
+/Php-Server/vendor
+/Client/node_modules
+/Client/.idea
+/Server/node_modules
+/Server/.idea
+*.log
+/Client/.git
+/Server/.git

@@ -1,0 +1,16 @@
+.message-content {
+  height: 100%;
+  position: relative;
+}
+.card-body{
+  min-height: 350px;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.msg-date {
+  font-size: 9px;
+  margin-top: -1px;
+  display: block;
+  color: rgba(70, 78, 85, 0.75);
+}

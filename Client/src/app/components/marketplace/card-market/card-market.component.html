@@ -1,0 +1,32 @@
+<div class="card-columns">
+    <div class="card market-content" *ngFor="let market of marketList">
+        <div [ngStyle]="{ 'background': 'url('+imageUrl+market.image+')'}"
+             class="card-img-top img-product" *ngIf="market.image"
+             (mouseenter)="addDiv($event)" (mouseleave)="removeDiv($event)">
+            <div class="market-shared-buttons p-2">
+                <button class="btn text-white font-weight-bold" (click)="saveItem(market.id)" *ngIf="!market.isSaved">Guardar</button>
+                <button class="btn btn-success" *ngIf="market.isSaved">Guardado</button>
+                <a class="btn text-white font-weight-bold" [routerLink]="['/chat', market.user_id]">Enviar Mensaje</a>
+                <!-- Eliminar -->
+                <button class="btn btn-danger"
+                        *ngIf="auth.id == market.user_id && type === 'market' "
+                        (click)="removeItem(market.id)">Eliminar</button>
+
+                <button class="btn btn-danger"
+                        *ngIf="type === 'marketsave' "
+                        (click)="removeItem(market.market_save)">Eliminar</button>
+            </div>
+        </div>
+        <div class="card-body">
+            <a [routerLink]="['/marketplace/item/', market.id ]"><h5 class="card-title">{{ market.title }}</h5></a>
+            <p class="market-info">
+                <small class="text-muted">{{ market.created_at | amTimeAgo}}</small>
+                <small class="text-muted">{{ market.dir }}</small>
+            </p>
+            <div class="market-price">
+                <b>${{ market.price }}</b>
+            </div>
+        </div>
+    </div>
+
+</div>

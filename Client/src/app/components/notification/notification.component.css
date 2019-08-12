@@ -1,0 +1,24 @@
+.notifies {
+    display: flex;;
+    flex-direction: column;
+    list-style: none;
+    padding: 1rem 0;
+}
+.notifies li {
+    margin-bottom: .5rem;
+    padding-bottom: .5rem;
+    border-bottom: 1px solid #e8e8e8;
+    display: flex;
+}
+.notifies li> div {
+    display: flex;
+    flex-direction: column;
+}
+.notifies img {
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.notifies li a {
+    color: black;
+}
+

@@ -1,0 +1,22 @@
+<div class="card">
+    <div class="card-body">
+        <div class="text-center">
+            <img [src]="avatar+user.avatar" alt="{{ user.name }}" width="50%" class="rounded-circle" *ngIf="user.avatar">
+        </div>
+      <h5 class="card-title">{{ user.name }} {{ user.lastname }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">@{{ user.username }}</h6>
+      <div class="d-flex justify-content-around">
+          <a [routerLink]="['/followers', user.id]" class="card-link text-center ">{{ stats.followers}} <div><small>Seguidores</small></div></a>
+          <a [routerLink]="['/followeds', user.id ]" class="card-link text-center">{{ stats.followed }} <div><small>Siguiendo</small></div></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="">
+    <ul>
+      <li><a [routerLink]="['/u', user.id ]">Perfil</a></li>
+      <li><a href="#">Fotos</a></li>
+      <li><a routerLink="/marketplace/all">MarketPlace</a></li>
+      <li><a routerLink="/chat">Mensajes</a></li>
+    </ul>
+  </div>

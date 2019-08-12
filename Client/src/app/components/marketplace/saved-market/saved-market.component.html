@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col-md-3 p-0">
+        <app-sidebar-market></app-sidebar-market>
+    </div>
+    <div class="col-md-9 ">
+        <app-card-market
+                type="marketsave"
+                style="width: 100%" [marketList]="marketList"></app-card-market>
+
+        <spiner [loader]="loader"></spiner>
+
+        <button class="btn btn-link btn-block" *ngIf="showMore && !loader" (click)="loadSavedMarkets()">Mostrar más</button>
+
+        <div *ngIf="marketList.length <= 0 && !loader">
+            Aun no has guardado ningún articulo
+        </div>
+    </div>
+</div>
+
+

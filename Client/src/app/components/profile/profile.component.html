@@ -1,0 +1,99 @@
+<div class="row">
+  <div class="col-md-3">
+    <!--  Profile Avatar  -->
+    <div class="card">
+      <div class="card-body">
+        <div class="text-center">
+          <img [src]="avatarUrl+user.avatar" [alt]="user.username" width="150px" class="rounded-circle">
+            <div *ngIf="user.id !== auth.id ">
+                <a class="btn btn-block btn-primary mt-2"[routerLink]="['/chat', user.id ]">Escribir mensaje</a>
+                <button class="btn btn-block btn-success mt-1" *ngIf="user.isFollow"
+                        (click)="unFollow()"
+                        (mouseleave)="followMessage = 'Siguiendo'"
+                        (mouseenter)="followMessage = 'Dejar de Seguir'">{{ followMessage }}</button>
+                <button class="btn btn-block btn-secondary" *ngIf="!user.isFollow" (click)="follow()">Seguir</button>
+            </div>
+            <div *ngIf="user.id === auth.id">
+                <button class="btn btn-block btn-primary" routerLink="/profile/config">Editar Perfil</button>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!--  Seguidores  -->
+    <div class="card mt-4">
+      <div class="card-body">
+          <div class="card-body-title">
+            Seguidores {{ followData.followers }}
+          </div>
+          <div class="card-body-content">
+            <a [routerLink]="['/u', f.person2.id ]" class="follow" *ngFor="let f of followersList">
+              <img [src]="avatarUrl+f.person2.avatar" [alt]="f.person2.username">
+              <span>{{ f.person2.name.split(" ")[0] }}</span>
+            </a>
+          </div>
+          <a [routerLink]="['/followers', userId]"
+             *ngIf="followersList.length > 0"
+             class="btn btn-link btn-sm btn-block mt-3">Ver todo</a>
+          <small *ngIf="followersList.length === 0">Aún es seguido por nadie</small>
+      </div>
+    </div>
+
+    <!--  Siguiendo  -->
+    <div class="card mt-4">
+      <div class="card-body">
+        <div class="card-body-title">
+            Siguiendo {{ followData.followed }}
+          </div>
+        <div class="card-body-content">
+            <a [routerLink]="['/u', f.person.id ]" class="follow" *ngFor="let f of followedList">
+              <img [src]="avatarUrl+f.person.avatar" [alt]="f.person.username">
+              <span>{{ f.person.name.split(" ")[0] }}</span>
+            </a>
+        </div>
+        <a [routerLink]="['/followeds', userId]"
+           *ngIf="followedList.length > 0"
+           class="btn btn-link btn-sm btn-block mt-3">Ver todo</a>
+        <small *ngIf="followedList.length === 0">Aún no sigue a nadie</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+      <div class="card mb-2">
+          <div class="card-body">
+              <h6>{{ user.name }} {{ user.lastname}}</h6>
+              <small>@{{ user.username }}</small>
+              <hr>
+              <table class="table table-borderless table-sm">
+                  <tbody>
+                  <tr>
+                      <td><b>Correo</b></td>
+                      <td>{{ user.email }}</td>
+                  </tr>
+                  <tr>
+                      <td><b>Género</b></td>
+                      <td>{{ (user.genero === 'M')?'Masculino':'Femenino' }}</td>
+                  </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+    <app-form-publication *ngIf="auth.id === userId" (publicationEmitter)="addPublication($event)"></app-form-publication>
+
+    <!-- TimeLife -->
+    <div class="row">
+      <div class="col-md-12" *ngFor="let p of publicationList">
+            <app-card-publication [publication]="p" (deletedPublication)="removePublication(p.id)"></app-card-publication>
+      </div>
+        <div class="col-md-12" *ngIf="publicationList.length <= 0">
+            <div class="alert alert-info">
+                Aún no tiene ninguna publicación
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+      <button class="btn btn-block btn-link" (click)="loadPublications()" *ngIf="showMore">Ver más</button>
+    </div>
+  </div>
+</div>

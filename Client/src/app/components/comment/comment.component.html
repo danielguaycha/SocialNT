@@ -1,0 +1,31 @@
+<div class="comment-component" *ngIf="showComments">
+  <form class="comment-form" #commentForm="ngForm" (ngSubmit)="addComment(commentForm)">
+      <img [src]="avatarUrl+auth.avatar" [alt]="auth.name" width="30px">
+      <input type="text"
+             name="text"
+             #text="ngModel"
+             maxlength="200"
+             [(ngModel)]="textMessage"
+             class="form-control" placeholder="Comentar..." required="required">
+      <button class="btn btn-primary" type="submit">Comentar</button>
+  </form>
+
+  <div class="comment-container">
+    <div *ngFor="let c of commentsList" class="comment">
+      <img [src]="avatarUrl+c.commentor.avatar" [alt]="c.commentor.name" width="30px" class="rounded-circle">
+      <div class="comment-person">
+        <a [routerLink]="['/u', c.commentor.id ]">{{ c.commentor.name }} {{ c.commentor.lastname }}</a>
+        <span>{{ c.text }}</span>
+        <div class="d-flex">
+          <small class="comment-date">{{ c.created_at | amParseZone  |amTimeAgo }}</small>
+          <button class="btn btn-link btn-sm m-0 ml-2 p-0"
+                  (click)="deleteComment(c.id)"
+                  *ngIf="auth.id == c.commentor.id">Eliminar</button>
+        </div>
+      </div>
+    </div>
+    <div class="view-more text-center mt-2">
+        <button class="btn btn-link btn-block" (click)="getComments()" *ngIf="showMore">Ver más</button>
+    </div>
+  </div>
+</div>

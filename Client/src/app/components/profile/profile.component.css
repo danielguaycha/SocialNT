@@ -1,0 +1,15 @@
+.card-body-content {
+    display: flex;
+    margin-top: 5px;
+    flex-flow: wrap;
+}
+.follow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px 10px;
+}
+.follow img {
+    width: 50px;
+    border-radius: 50%;
+}

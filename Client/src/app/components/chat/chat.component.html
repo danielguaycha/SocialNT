@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-md-4 pr-1">
+    <div class="card">
+      <div class="card-header ">
+        {{title}}
+        <div class="search-chat-user">
+          <form #searchForm="ngForm" (ngSubmit)="findUser()" class="form-group d-flex">
+            <input type="text" class="form-control" name="query"
+                   #query="ngModel"
+                   [(ngModel)]="querySearch"  placeholder="Ingrese usuario">
+            <button type="submit">Buscar</button>
+          </form>
+        </div>
+      </div>
+      <div class="card-body user-list-content">
+
+        <!-- Lista de mensajes de usuarios -->
+        <div class="user-list" *ngIf="messageEmitters && users.length == 0">
+          <ul style="list-style: none; padding: 0">
+            <li *ngFor="let m of messageEmitters">
+                <div class="user-chat" [routerLink]="['/chat', m.id]">
+                  <img src="{{ avatarUrl+m.avatar}}" width="40px" class="rounded-circle mr-2">
+                  <div class="user-chat-body">
+                    <span *ngIf="m.id !== auth.id" class="mr-2">{{ m.name }}</span>
+                    <span *ngIf="m.id === auth.id" class="mr-2">Tú</span>
+                    <span><small>@{{ m.username }}</small></span>
+                  </div>
+                </div>
+            </li>
+          </ul>
+        </div>
+        <!-- lista de usuarios buscados-->
+        <div class="users-list" *ngIf="users">
+            <ul style="list-style: none; padding: 0">
+              <li *ngFor="let u of users">
+                <div class="user-chat" [routerLink]="['/chat', u.id]">
+                  <img src="{{ avatarUrl+u.avatar }}" width="50px" class="rounded-circle" alt="{{ u.name}}">
+                  <div class="user-chat-body">
+                    <span>
+                      {{ u.name }} {{ u.lastname }}
+                    </span>
+                    <span><small>@{{ u.username }}</small></span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8 p-0">
+    <app-messages (reload)="getMessagesUser()"  user="{{ userId }}"></app-messages>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<!-- Publicar -->
+<app-form-publication (publicationEmitter)="processPublication($event)"></app-form-publication>
+
+<!-- TimeLife -->
+<div class="row">
+  <div class="col-md-12" *ngFor="let p of publicationList">
+    <app-card-publication [publication]="p" (deletedPublication)="removePublication(p.id)"></app-card-publication>
+    <app-reactions pubId="{{ p.id}}" [showComments]="false" type="pub"></app-reactions>
+  </div>
+</div>
+
+<div class="row mt-2">
+  <button class="btn btn-block btn-link" (click)="loadPublications(true)" *ngIf="showMore">Ver más</button>
+</div>

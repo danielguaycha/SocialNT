@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-light" *ngIf="auth">
+  <a class="navbar-brand" routerLink="/home">{{ title }}</a>
+  <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+      aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavId">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="/home">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item"  routerLinkActive="active">
+        <a class="nav-link" routerLink="/marketplace/all">MarketPlace</a>
+      </li>
+      <li class="nav-item"  routerLinkActive="active">
+        <a class="nav-link" routerLink="/chat">Mensajes</a>
+      </li>
+      <li class="nav-item"  routerLinkActive="active">
+        <a class="nav-link" routerLink="/notify">Notificaciones</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" #searchForm="ngForm" (ngSubmit)="searchUser(searchForm)">
+      <input class="form-control mr-sm-2"
+        type="text"
+        name="search"
+        [(ngModel)]="search"
+        placeholder="@usuario | nombre">
+      <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Buscar</button>
+    </form>
+    <ul class="nav navbar navbar-right">
+      <li class="avatar">
+
+      </li>
+      <li class="dropdown">
+
+          <button class="btn dropdown-toggle" data-display="static" type="button"  data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+                {{ auth.name }}
+              </button>
+          <div class="dropdown-menu  dropdown-menu-lg-right" aria-labelledby="triggerId">
+            <a class="dropdown-item" [routerLink]="['/u', auth.id ]">Mi Perfil</a>
+            <a class="dropdown-item" routerLink="/profile/config">Mis Datos</a>
+            <div class="dropdown-divider"></div>
+
+            <button class="dropdown-item" href="#" (click)="logout()">Cerrar Sesión</button>
+          </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container mt-3 mb-4">
+  <alert></alert>
+  <router-outlet></router-outlet>
+</div>

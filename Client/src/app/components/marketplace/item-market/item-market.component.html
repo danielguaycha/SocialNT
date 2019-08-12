@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-md-3 p-0">
+        <app-sidebar-market></app-sidebar-market>
+    </div>
+    <div class="col-md-9">
+        <div class="card p-3" *ngIf="item">
+            <div>
+                <small class="text-muted">MarketPlace > {{ item.category }}</small>
+                <h4>{{ item.title }}</h4>
+                <small class="text-muted">{{ item.dir }} &nbsp;&nbsp; {{ item.created_at | amTimeAgo }}</small>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-8">
+                    <img [src]="imageUrl+item.image" width="100%">
+                </div>
+                <div class="col-md-4 pl-0">
+                    <div>
+                        <h4 class="text-success">${{ item.price }}</h4>
+                        <small>{{ item.description }}</small>
+                        <small class="d-block mt-5 mb-2 text-uppercase">Información del vendedor</small>
+                        <div class="user-seller">
+                            <img [src]="avatarUrl+item.avatar" width="30px" class="rounded-circle">
+                            <div>
+                                <a [routerLink]="['/u', item.user ]">{{ item.name+' '+item.lastname}}</a>
+                                <small class="d-block text-muted">@{{ item.username }}</small>
+                            </div>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <small class="d-block mt-2 mb-2 text-uppercase" *ngIf="auth.id != item.user">Pedir detalles</small>
+                        <form #messageForm="ngForm" (ngSubmit)="sendMessage(messageForm)" *ngIf="auth.id != item.user">
+                            <div class="form-group">
+                                <label><small>Envia mensaje al vendedor</small></label>
+                                <input type="text"
+                                       [(ngModel)]="textMessage"
+                                       class="form-control" name="message" value="¿Sigue estando disponible?">
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-success btn-block">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

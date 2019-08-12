@@ -1,0 +1,4 @@
+<div class="col-md-6 offset-3" *ngIf="publication">
+    <app-card-publication [publication]="publication" ></app-card-publication>
+    <app-reactions [showComments]="true" type="pub" [pubId]="publication.id"></app-reactions>
+</div>

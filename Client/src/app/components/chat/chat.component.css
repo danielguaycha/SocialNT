@@ -1,0 +1,17 @@
+.user-list-content {
+  min-height: 400px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+.user-chat {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.user-chat-body {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}

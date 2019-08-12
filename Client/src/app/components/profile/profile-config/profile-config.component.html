@@ -1,0 +1,106 @@
+<div class="col-md-6 offset-md-3">
+    <form class="card"  #updateUserForm="ngForm" (ngSubmit)="onSubmit(updateUserForm)">
+        <div class="card-header">
+            Modificar Perfil  
+        </div>
+        <div class="card-body">
+ 
+                <div class="form-group text-center">
+                    <img [src]="url+user.avatar" width="100px" class="rounded-circle" *ngIf="!imgUrl">
+                    <img [src]="imgUrl" width="100px" class="rounded-circle" *ngIf="imgUrl">
+                    <label class="input-file">
+                        <b class="btn btn-secondary btn-sm">Cambiar foto de perfil </b>
+                        <input type="file" #file (change)="preview($event)">
+                    </label>                    
+                </div>
+              
+                <div class="form-group">
+                    <label for="name">Nombre</label>
+                    <input type="text" 
+                        name="name"                        
+                        [(ngModel)]="user.name"
+                        placeholder="Ingrese un nombre" 
+                        required class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="name">Apellido</label>
+                    <input type="text" 
+                        name="lastname"
+                        [(ngModel)]="user.lastname"
+                        placeholder="Ingrese un apellido" 
+                        required class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="name">Correo</label>
+                    <input type="email" 
+                        name="email"
+                        [(ngModel)]="user.email"
+                        placeholder="Ingrese un correo" 
+                        required class="form-control">
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="name">Usuario</label>
+                            <input type="text" 
+                                name="username"
+                                [(ngModel)]="user.username"
+                                placeholder="Ingrese un usuario" 
+                                required class="form-control">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                          <label for="">Genero</label>
+                          <select class="form-control" name="genero" [(ngModel)]="user.genero">
+                            <option value="">Seleccione...</option>
+                            <option value="M">Masculino</option>
+                            <option value="F">Femenino</option>                
+                          </select>
+                        </div>
+                    </div>
+                </div>
+     
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">Cambiar Contraseña</button>
+        </div>
+    </form>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form class="modal-content" #passwordForm="ngForm" (ngSubmit)="onSubmitPw(passwordForm)">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cambiar Contraseña</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-{{ type }}" role="alert" *ngIf="message">
+                    {{ message }}
+                </div>
+                <div class="form-group">
+                  <input type="password"
+                    class="form-control" name="last_password"
+                    [(ngModel)]="passwords.last_password"
+                     required placeholder="Antigua Contraseña">
+                </div>
+                <div class="form-group">
+                  <input type="text"
+                    class="form-control" name="new_password" 
+                    [(ngModel)]="passwords.new_password"
+                    required placeholder="Nueva Contraseña">                  
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"  data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" [disabled]="!passwordForm.form.valid">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>

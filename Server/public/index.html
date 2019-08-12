@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="os()">Click</button>
+    <script src="socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        // Escuchar por defecto al server 
+        socket.on('connect', () => {
+            console.log(`Conectado al servidor`);            
+            socket.emit('new-user', {nick:'detzerg'}, (data) => {
+                console.log(data);
+            });
+        })
+
+        function os(){
+           
+            console.log(`Emitting`);
+        }
+    </script>
+</body>
+</html>
