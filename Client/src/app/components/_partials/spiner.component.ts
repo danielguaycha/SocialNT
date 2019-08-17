@@ -5,7 +5,7 @@ import {Component, OnInit, Input, SimpleChanges, OnChanges} from '@angular/core'
     templateUrl: './spiner.component.html',
     styleUrls: ['./spiner.component.css']
 })
-export class SpinerComponent implements OnInit, OnChanges {
+export class SpinerComponent implements OnInit {
     @Input() loader: boolean;
     @Input() message: string;
     constructor() {}
@@ -13,8 +13,4 @@ export class SpinerComponent implements OnInit, OnChanges {
     ngOnInit(): void {
         this.message = 'Espere...';
      }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        this.loader = changes.loader.currentValue;
-    }
 }

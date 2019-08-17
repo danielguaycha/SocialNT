@@ -1,4 +1,4 @@
-<div class="col-md-6 offset-md-3">
+<div class="col-md-8 offset-md-2">
     <form class="card"  #updateUserForm="ngForm" (ngSubmit)="onSubmit(updateUserForm)">
         <div class="card-header">
             Modificar Perfil  
@@ -64,6 +64,7 @@
         </div>
         <div class="card-footer d-flex justify-content-between">
             <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            <a class="btn btn-secondary" routerLink="/register/facial">Registrar mi rostro</a>
             <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">Cambiar Contraseña</button>
         </div>
     </form>

@@ -6,7 +6,7 @@ const randomstring = require("randomstring");
 const fn = require('./fn');
 const uploadController = require('./upload');
 const emailController = require('./mail');
-const User = require('./../models/user');
+const {User, PasswordReset} = require('./../db');
 const { isFollow, getByUsername } = require('./follow')
 
 // Guardar usuario
@@ -148,6 +148,7 @@ function login(req, res){
     })
 
 }
+
 
 // cambiar contraseña
 function changePassword(req,res){    
@@ -304,7 +305,127 @@ async function getAllUsersForOnline(req, res){
 
     return fn.all(res, users);
 }
-// get all users for chat
+
+//============================
+//		FaceId Login
+//============================
+
+function loginFaceId(req, res) {
+    if (!req.body.hash) return fn.error(res, 'Credenciales incorrectas');
+
+    User.findOne({
+        where: { hash: req.body.hash }
+    }).then( user => {
+        if(!user) return fn.error(res, "No se registró su rostro!");
+
+        if(process.env.CONFIRM_MAL){
+            if(user.confirmation_code !== null || user.confirmed === 0)
+                return fn.error(res, 'Confirme su correo para iniciar sesión!')
+        }
+        // creamos sesion mediante token
+        let token = jwt.sign({ user }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRED } );
+
+        return fn.all(res, { user, token })
+        
+    }).catch( err => {
+        console.log(err);
+        return fn.except(res, err);
+    })
+}
+
+function getHash(req, res) {
+    let hashRandom = randomstring.generate(10); 
+    let stringHash = `${hashRandom}_${req.user.username}.${req.user.id}`;
+
+    User.findByPk(req.user.id).then(user => {
+        return fn.object(res, {ok: true, newHash: stringHash, oldHash: user.hash});
+    }).catch(err => {
+        console.log(err);
+        return fn.except(res, err);
+    })
+
+}
+
+function updateHash(req, res) {
+    if(!req.body.hash)
+        return fn.error(res, 'Proporcione un hash para actualizar!');
+
+    User.findByPk(req.user.id).then(user => {
+
+        if(!user) return fn.error(res, 'No se encontró el usuario');
+
+        user.update({ hash: req.body.hash }).then(updated => {
+            return fn.all(res, updated);
+        });
+    })
+}
+
+//============================
+//		Reset Password
+//============================
+
+function sendResetPasswordCode(req, res){
+    let r = req.body;
+
+    if(!r.email) { return fn.error(res, 'Proporcine un email'); }
+
+    User.findOne({ where: { email: r.email }}).then(user => {
+
+        if(!user) return fn.error(res, 'El email proporcionado no coincide con nuestros registros');
+
+        PasswordReset.create({
+            email: user.email,
+            token: `${randomstring.generate(55)}${user.id}`,
+            created_at: `${fn.date()}`
+        }).then(reset => {
+            if(!reset) return fn.error('No se pudo enviar su correo de recuperación');
+            
+            emailController.sendResetPasswordMail(reset.email, reset.token);
+        
+            return fn.ok(res, 'Te hemos enviado un correo con la información necesaria para restablecer tus contraseña');
+        }).catch(err => {
+            console.log(err);
+            return fn.except(res, err);
+        })
+        
+    }).catch(err => {        
+        console.log(err);
+        return fn.except(res, err);
+    })
+
+}
+
+function resetPassword(req, res) {
+    let r = req.body;
+
+    if(!r.email || !r.token || !r.password) {
+        return fn.error(res, 'Complete el formulario primero!');
+    }
+
+    PasswordReset.findOne({ where: { email: r.email, token: r.token }, order:[['created_at', 'desc']]})
+        .then(reset => {
+            if(!reset) return fn.error(res, 'Token o correo no validos o expirados');
+
+            // Cambiar contraseña en la base de datos
+            User.findOne({
+                where: { email: reset.email }
+            }).then(user => {
+                if(!user) return fn.error(res, 'No existe un usuario con este correo');
+
+                user.update({ password: bcrypt.hashSync(r.password, 10) });
+                reset.destroy();
+
+                return fn.ok(res, 'Su contraseña fue restablecida con éxito');
+            }).catch(err => {
+                console.log(err);
+                return fn.except(res, err);
+            })
+
+        }).catch(err => {
+            console.log(err);
+            return fn.except(res, err);
+        })
+}
 
 module.exports = {
     saveUser, 
@@ -317,5 +438,9 @@ module.exports = {
     changePassword,
     confirmMail,
     getUserForOnline,
-    getAllUsersForOnline
+    getAllUsersForOnline,
+    getHash, updateHash,
+    loginFaceId,
+    sendResetPasswordCode,
+    resetPassword
 }

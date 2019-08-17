@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Ingreso del Cliente
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="/static/css/bootstrap.css">
+
+    </head>
+    <body>
+        <div class="container">
+
+                <h1 class="mt-2">
+                        INGRESO DEL USUARIO
+                </h1>
+                <div class="form-inline text-center justify-content-center">
+                    <label class="mr-2">Identificador:</label>
+                    <input type="text" class="form-control" id="id" placeholder="Ingrese un id" value="1234567890">
+                        <button id="boton" class="btn btn-primary">Registrar</button>
+                </div>
+                <div class="row mt-2 mb-3">
+                    <div class="col-md-12"> <b id="estado"></b>   </div>
+                    <div class="col-md-12">
+                        <div class="progress" style="display: none">
+                            <div class="progress-bar" id="progress" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                        </div>
+                    </div>     
+                    <div class="col-md-12 mt-5 px-2 text-center" style="display: none;">
+                        <a id="link-login" href="/login" class="btn btn-success">Iniciar el Reconocimiento</a>
+                    </div>                                       
+                </div>
+                
+                                    
+                <div class="text-center">
+                    <video id="video"></video>
+                </div>
+                
+                
+                <br>
+                {% csrf_token %}
+               
+                
+               
+                
+                <canvas id="canvas" style="display: none;"></canvas>
+            
+        </div>
+
+        <script src="/static/js/axios.js"></script>
+        
+        <script type="text/javascript">
+
+            let fotos=new Array();
+
+            function tieneSoporteUserMedia(){
+                console.log(navigator);
+                return !!(navigator.getUserMedia || (navigator.mozGetUserMedia ||  navigator.mediaDevices.getUserMedia) || navigator.webkitGetUserMedia || navigator.msGetUserMedia)
+            }
+
+            function _getUserMedia(){    
+                return (navigator.getUserMedia || (navigator.mozGetUserMedia ||  navigator.mediaDevices.getUserMedia) || navigator.webkitGetUserMedia || navigator.msGetUserMedia).apply(navigator, arguments);
+            }
+
+            function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }    
+                
+            if (tieneSoporteUserMedia()) {
+                _getUserMedia(
+                    {video: true},
+                    function (stream) {
+                        console.log("Permiso concedido");
+
+                        var $video = document.getElementById("video"),
+                        $canvas = document.getElementById("canvas"),
+                        $boton = document.getElementById("boton"),
+                        $estado = document.getElementById("estado");
+                        $progress = document.getElementById('progress')
+                        $video.srcObject = stream;
+
+                        
+                        //document.getElementById("id").value='';
+                        $video.play();
+                        $boton.addEventListener("click", function(){
+                            
+                            //Pausar reproducción
+                            var contexto=null;
+                            var foto=null;
+                            id = document.getElementById("id").value;
+
+                            if(id.trim() == '' || id.trim().length<6){
+                                console.log(id);
+                                alert('Ingresa un id válido con almenos 6 carácteres para registrar')
+                                return;
+                            }
+
+                            
+                                
+                            $estado.innerHTML = "Capturando Patrón del rostro, por favor espere...";
+                            async function tomarfotos(){
+                                
+                                $progress.parentElement.style.display = "block"
+
+                                var cont = 0;
+                                var formData = new FormData();
+                                for (var i = 0; i < 100; i++) {               
+                                    await sleep(100);
+                                    $video.pause();
+                                    
+                                    contexto = $canvas.getContext("2d");
+                                    $canvas.width = $video.videoWidth;
+                                    $canvas.height = $video.videoHeight;
+                                    contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
+                                    
+                                    var img=contexto.getImageData(0,0,$canvas.width, $canvas.height);
+                                    var data2=img.data;
+
+                                    for(var j = 0; j < data2.length; j += 4) {
+                                        var grayscale= 0.33*data2[j]+0.5*data2[j+1]+0.15*data2[j+2];
+                                        data2[j]=grayscale;
+                                        data2[j+1]=grayscale;
+                                        data2[j+2]=grayscale;
+                                    }
+
+                                    // Asignamos la imagen al Canvas
+                                    contexto.putImageData(img,0,0);
+                                    foto = $canvas.toDataURL();
+                                    formData.append("foto"+i, foto);
+                                    
+                                    $video.play();
+                                    $progress.style.width = `${i+1}%`;
+                                    $progress.innerHTML =  `${i+1}%`;
+
+                                }
+                               
+        
+                                $progress.parentElement.style.display = "none"
+                                console.log("Numero de foto: " + fotos.length);
+                                csrf = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+                                
+                                // Make a request for a user with a given ID
+                                formData.append("id", id);
+                                formData.append("face_data", '');
+                                formData.append("csrfmiddlewaretoken", csrf);
+
+                                $estado.innerHTML = "Cargando sus datos, espere...";
+                                axios.post('/registerPhotos', formData, {
+                                    headers: {
+                                    'Content-Type': 'multipart/form-data'
+                                    }
+                                }).then(function (response) {
+                                    if(response.data != -1){
+                                        $estado.innerHTML = "Listo para el Reconocimiento..!!!"
+                                        $video.pause();
+                                        $video.style.display="none";
+                                        document.getElementById('link-login').parentElement.style.display="block";
+                                        console.log("---- LISTO ----");
+                                    }else{
+                                        $estado.innerHTML = "Ocurrio un error en la toma... Recargue el sitio Web y Vuelva a Intentarlo"
+                                        console.log("---- FAIL  ----");
+                                    }
+                                })
+                                .catch(function (error) {
+                                // handle error
+                                console.log(error);
+                                })
+                                .then(function () {
+                                // always executed
+                                });    
+                            }
+
+                            tomarfotos();
+                            
+                            //Reanudar reproducción
+                            
+                        });
+                    }, function (error) {
+                        console.log("Permiso denegado o error: ", error);
+                    });
+            } else {
+                alert("Lo siento. Tu navegador no soporta esta característica");
+            }
+
+
+        </script>
+    </body>
+</html>

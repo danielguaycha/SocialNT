@@ -25,6 +25,10 @@ export class UserService {
         return this.http.post(`${this.url}/login`, user);
     }
 
+    loginFaceId(hash): Observable<any> {
+        return this.http.post(`${this.url}/login/face`, {hash});
+    }
+
     // obtener datos estadisticos, seguidores y seguidos
     getStats(userId): Observable<any> {
         return this.http.get(`${this.url}/follow/stats/${userId}`);
@@ -92,7 +96,24 @@ export class UserService {
         return this.token;
     }
 
-    //
+    getHash(): Observable<any> {
+        return this.http.post(`${this.url}/user/hash`, {});
+    }
+
+    updateHash(hash): Observable<any> {
+        return this.http.put(`${this.url}/user/hash`, {hash});
+    }
+
+    /* PASSWORD RESETS */
+    sendResetPassword(email): Observable<any> {
+        return this.http.post(`${this.url}/user/password_reset/send`, {email});
+    }
+
+    sendConfirmResetPassword(email, token, password): Observable<any> {
+        return this.http.post(`${this.url}/user/password_reset/validate`, {email, token, password});
+    }
+
+    /* ONLINE USERS */
     getUserForOnline(username): Observable<any> {
         return this.http.get(`${this.url}/user/online/${username}`);
     }

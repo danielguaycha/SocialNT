@@ -70,3 +70,11 @@
   text-align: center;
   display: block;
 }
+
+.face-video {
+  display: flex;
+}
+.face-video video, .face-video canvas{
+  display: inline-block;
+  margin: 0 auto;
+}

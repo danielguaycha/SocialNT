@@ -19,6 +19,10 @@ import {SellMarketComponent} from './components/marketplace/sell-market/sell-mar
 import {SavedMarketComponent} from './components/marketplace/saved-market/saved-market.component';
 import {NotificationComponent} from './components/notification/notification.component';
 import {ViewPublicationComponent} from './components/publications/view-publication/view-publication.component';
+import {FaceRegisterComponent} from './components/register/face-register/face-register.component';
+import {FacialLoginComponent} from './components/login/facial-login/facial-login.component';
+import {ResetPasswordComponent} from './components/reset-password/reset-password.component';
+import {ResetPasswordConfirmComponent} from './components/reset-password/reset-password-confirm/reset-password-confirm.component';
 
 
 
@@ -26,7 +30,11 @@ import {ViewPublicationComponent} from './components/publications/view-publicati
 const routes: Routes = [
     { path: '', component: LoginComponent },
     { path: 'login', component: LoginComponent },
+    { path: 'login/facial', component: FacialLoginComponent },
+    // Register
     { path: 'register', component: RegisterComponent},
+    // Facial register
+    { path: 'register/facial', component: FaceRegisterComponent, canActivate: [AuthGuard]},
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
     { path: 'chat/:id', component: ChatComponent, canActivate: [AuthGuard]},
     { path: 'chat', component: ChatComponent, canActivate: [AuthGuard]},
@@ -49,6 +57,8 @@ const routes: Routes = [
     // notification
     { path: 'notify', component: NotificationComponent, canActivate: [AuthGuard] },
     { path: 'confirm/:id/:token', component: ConfirmComponent},
+    { path: 'reset_password', component: ResetPasswordComponent},
+    { path: 'reset_password/:token', component: ResetPasswordConfirmComponent},
     { path: '**', redirectTo: 'home' },
    // { path: '**', component: PageNotFoundComponent },
 

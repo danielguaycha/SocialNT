@@ -25,9 +25,27 @@ async function sendConfirmMail(to, user, user_id, token){
             `
     });
 
-    console.log("Message sent: %s", info.messageId);
+    console.log("Register sent: %s", info.messageId);
+}
+
+async function sendResetPasswordMail(to, token){
+    
+    let info = await transporter.sendMail({
+        from: `"👻" <admin@socialnt.com>`, // sender address
+        to, // list of receivers
+        subject: "Recuperación de contraseña",
+        text: "Recupera tu contraseña", 
+        html: `
+            <b>Para recuperar tu contraseña ve al enlace abajo!</b>
+            <p>
+                <a href="${ process.env.CLIENT_URL }/reset_password/${token}" target="_blank">Recuperar mi contraseña</a>
+            </p>
+            `
+    });
+
+    console.log("Confirm sent: %s", info.messageId);
 }
 
 module.exports = {
-    sendConfirmMail
+    sendConfirmMail, sendResetPasswordMail
 }

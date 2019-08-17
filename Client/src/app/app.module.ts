@@ -8,6 +8,9 @@ import 'moment/locale/es';
 
 // rutas
 import { FeatureRoutingModule } from './app.routes';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import * as fromOnlineReducer from './store/online.reducer';
 
 // componentes
 import { AppComponent } from './app.component';
@@ -26,7 +29,7 @@ import { FollowedsComponent } from './components/follow/followeds/followeds.comp
 import { FollowersComponent } from './components/follow/followers/followers.component';
 import { ProfileConfigComponent } from './components/profile/profile-config/profile-config.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
-import {SocketService} from './services/socket.service';
+import { SocketService } from './services/socket.service';
 import { ChatComponent } from './components/chat/chat.component';
 import { MessagesComponent } from './components/chat/messages/messages.component';
 import { PublicationsComponent } from './components/publications/publications.component';
@@ -47,6 +50,12 @@ import { SavedMarketComponent } from './components/marketplace/saved-market/save
 import { NotificationComponent } from './components/notification/notification.component';
 import { ViewPublicationComponent } from './components/publications/view-publication/view-publication.component';
 import { OnlineComponent } from './components/home/online/online.component';
+import {StoreModule} from '@ngrx/store';
+import { FaceRegisterComponent } from './components/register/face-register/face-register.component';
+import { FacialLoginComponent } from './components/login/facial-login/facial-login.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { ResetPasswordConfirmComponent } from './components/reset-password/reset-password-confirm/reset-password-confirm.component';
+
 
 @NgModule({
   declarations: [
@@ -82,6 +91,10 @@ import { OnlineComponent } from './components/home/online/online.component';
     NotificationComponent,
     ViewPublicationComponent,
     OnlineComponent,
+    FaceRegisterComponent,
+    FacialLoginComponent,
+    ResetPasswordComponent,
+    ResetPasswordConfirmComponent,    
   ],
   imports: [
     BrowserModule,
@@ -90,6 +103,8 @@ import { OnlineComponent } from './components/home/online/online.component';
     FormsModule,
     ReactiveFormsModule,
     MomentModule,
+    StoreModule.forRoot({ online: fromOnlineReducer.reducer }),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

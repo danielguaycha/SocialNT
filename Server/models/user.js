@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const PROTECTED_ATTRIBUTES = ['password', 'hash']
+const PROTECTED_ATTRIBUTES = ['password']
 
 module.exports = class User extends Sequelize.Model {
     static init(sequelize, DataTypes){

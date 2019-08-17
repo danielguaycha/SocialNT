@@ -1,0 +1,13 @@
+<div class="card">
+    <div class="card-header py-1 header-face">
+        <h6>Registro Facial</h6>
+        <spiner [loader]="loader" [message]="message"></spiner>
+        <button class="btn btn-secondary" (click)="capturePhotos()">Iniciar Registro</button>
+    </div>
+    <div class="card-body">
+            <div class="face-video">
+                <video id="video"></video>
+                <canvas id="canvas" style="display: none;"></canvas>
+            </div>
+    </div>
+</div>

@@ -13,6 +13,7 @@ const Reaction = require('./models/reaction');
 const Comment = require('./models/comment');
 const Market = require('./models/market');
 const Notification = require('./models/notification');
+const PasswordReset = require('./models/password_reset');
 
 const models = {
     User: User.init(sequelize, Sequelize.DataTypes),
@@ -23,7 +24,10 @@ const models = {
     Comment: Comment.init(sequelize),
     Notification: Notification.init(sequelize),
     Market: Market.init(sequelize),
+    PasswordReset: PasswordReset.init(sequelize),
 }
+
+PasswordReset.removeAttribute('id');
 
 Object.values(models)
   .filter(model => typeof model.associate === "function")
@@ -40,5 +44,6 @@ Object.values(models)
 
 module.exports  = {
     User, Follow, Message, Reaction, Comment, Notification, Publication, Market,
+    PasswordReset,
     sequelize
 };

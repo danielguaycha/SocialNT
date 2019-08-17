@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Reconocimiento del Cliente
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="/static/css/bootstrap.css">
+    </head>
+    <body>
+        <center>
+            <h1>
+                    RECONOCIMIENTO DEL USUARIO
+            </h1>
+
+            <video id="video"></video>
+            
+            <br>
+            {% csrf_token %}
+            <button id="boton" class="btn btn-primary">Inicio de Reconocimiento</button>
+            
+            <div>
+               <b id="estado" class="text-center"></b>
+            </div> 
+            
+            <canvas id="canvas" style="display: none;"></canvas>
+        
+        </center>
+
+        <script src="/static/js/axios.js"></script>
+        <script type="text/javascript">
+            let intentos = 0;
+            function tieneSoporteUserMedia(){
+                return !!(navigator.getUserMedia || (navigator.mozGetUserMedia ||  navigator.mediaDevices.getUserMedia) || navigator.webkitGetUserMedia || navigator.msGetUserMedia)
+            }
+
+            function _getUserMedia(){
+                return (navigator.getUserMedia || (navigator.mozGetUserMedia ||  navigator.mediaDevices.getUserMedia) || navigator.webkitGetUserMedia || navigator.msGetUserMedia).apply(navigator, arguments);
+            }
+
+            if (tieneSoporteUserMedia()) {
+                _getUserMedia(
+                    {video: true},
+                    function (stream) {
+                        console.log("Permiso concedido");
+
+                        var $video = document.getElementById("video"),
+                        $canvas = document.getElementById("canvas"),
+                        $boton = document.getElementById("boton"),
+                        $estado = document.getElementById("estado");
+                        $video.srcObject = stream;
+
+                        $video.play();
+                        $boton.addEventListener("click", function(){
+                            intentos = 0;
+                            //Pausar reproducción
+                            $video.pause();
+                            var contexto=null;
+                            var foto=null;
+                            function capturar(){
+                                
+                                contexto = $canvas.getContext("2d");
+                                $canvas.width = $video.videoWidth;
+                                $canvas.height = $video.videoHeight;
+                                contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
+                            
+                                foto = $canvas.toDataURL(); //Esta es la foto, en base 64
+                                    
+                                //Obtener contexto del canvas y dibujar sobre él
+                                $estado.innerHTML = "Analizando...";
+                                
+                                csrf = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+                                console.log(csrf);
+                                // Make a request for a user with a given ID
+                                var formData = new FormData();
+                                formData.append("imagen", foto);
+                                formData.append("csrfmiddlewaretoken", csrf);
+
+
+                                axios.post('/identificar', formData, {
+                                    headers: {
+                                    'Content-Type': 'multipart/form-data'
+                                    }
+                                }).then(function (response) {
+                                    if(response.data != -1){
+                                    // window.location.href = "http://reconocimientofacial.pr.com/getDataClient/"+response.data;
+                                        console.log(response.data)
+
+                                        let email = response.data;
+                                        
+                                        $estado.innerHTML = `Identificación exitosa<br>Usuario:<br> <i class="text-success">${response.data}</i>`;
+                                        
+                                        //
+                                        // Simulate a mouse click:
+                                        let port = 8000;
+                                        let ip = '192.168.137.1';
+
+                                      //  window.location.href = `${ip}:${port}/api/login/${email}`;
+                                        
+                                    }else{
+                                        if(intentos<10)
+                                            capturar();
+                                        else
+                                            $estado.innerHTML = `Pratrón de rostro no identificado`;
+                                        intentos++;
+                                    }
+                                })
+                                .catch(function (error) {
+                                // handle error
+                                console.log(error);
+                                })
+                                .then(function () {
+                                // always executed
+                                });             
+                            }
+                            capturar();
+                            //Reanudar reproducción
+                            $video.play();
+                        });
+                    }, function (error) {
+                        console.log("Permiso denegado o error: ", error);
+                    });
+            } else {
+                alert("Lo siento. Tu navegador no soporta esta característica");
+            }
+
+            setTimeout(function(){
+                document.getElementById("boton").click();
+            }, 1000);
+
+
+
+        </script>
+    </body>
+</html>

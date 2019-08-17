@@ -84,7 +84,8 @@
     <!-- TimeLife -->
     <div class="row">
       <div class="col-md-12" *ngFor="let p of publicationList">
-            <app-card-publication [publication]="p" (deletedPublication)="removePublication(p.id)"></app-card-publication>
+          <app-card-publication [publication]="p" (deletedPublication)="removePublication(p.id)"></app-card-publication>
+          <app-reactions [pubId]="p.id" [showComments]="false"></app-reactions>
       </div>
         <div class="col-md-12" *ngIf="publicationList.length <= 0">
             <div class="alert alert-info">
