@@ -49,8 +49,10 @@ async function notifyPublication(from, pub_id, type = 'LIKE'){
             url: `/publication/${pub.id}`,
             created_at: `${fn.date()}`,
         }).then(notify => {
-            if(notify)
+            if(notify) {           
+                notifySocket(pub.user_id, description, notify.url);     
                 return true;
+            }
         }).catch(err => {
             console.log(err);
             return false;
@@ -95,6 +97,7 @@ async function notifyFollow(from, follow_id, type = 'FOLLOW'){
         }).then(notify => {
             if(!notify) return false;
 
+            notifySocket(follow.followed, description, notify.url);
             return true;
         })
     } catch(e) {
@@ -137,7 +140,8 @@ async function notifyMarket(req, res) {
             created_at: `${fn.date()}`,
         }).then(notify => {
             if(!notify) return false;
-
+            
+            notifySocket(market.user_id, description, notify.url);
             return true;
         }).catch(err => {
             console.log(err);
@@ -148,6 +152,18 @@ async function notifyMarket(req, res) {
         console.log(e);
         return false;
     }
+}
+
+async function notifySocket(user_id, message, url) {
+    User.findByPk(user_id, { attributes:['username']}).then(user => {
+        if(!user) false;
+        
+        socketServer.sendNotify(user.username, message, url);
+        return true;
+    }).catch(err => {
+        console.log(err);
+        return false;
+    })
 }
 
 function getNotifications(req, res){

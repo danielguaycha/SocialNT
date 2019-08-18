@@ -13,10 +13,14 @@
         <a class="nav-link" routerLink="/marketplace/all">MarketPlace</a>
       </li>
       <li class="nav-item"  routerLinkActive="active">
-        <a class="nav-link" routerLink="/chat">Mensajes</a>
+        <a class="nav-link" routerLink="/chat" (click)="newMessage = false">Mensajes
+          <span class="notify-point" *ngIf="newMessage"></span>
+        </a>
       </li>
       <li class="nav-item"  routerLinkActive="active">
-        <a class="nav-link" routerLink="/notify">Notificaciones</a>
+        <a class="nav-link" routerLink="/notify" (click)="newNotify = false">Notificaciones
+          <span class="notify-point" *ngIf="newNotify"></span>
+        </a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0" #searchForm="ngForm" (ngSubmit)="searchUser(searchForm)">
@@ -52,4 +56,13 @@
 <div class="container mt-3 mb-4">
   <alert></alert>
   <router-outlet></router-outlet>
+  <div class="popup" *ngIf="notify">
+    <div class="popup-header">
+      <div>Notificación</div>
+      <button class="popup-close" (click)="closeNotify()">x</button>
+    </div>
+    <div class="popup-body">
+      <a routerLink="{{ notify.url }}" [innerHTML]="notify.message"></a>
+    </div>
+  </div>
 </div>

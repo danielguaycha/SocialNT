@@ -1,6 +1,16 @@
 <div class="card">
-    <button (click)="clicker()">Click</button>
-    <ul>
-        <li *ngFor="let o of onlineUsers"><a href="#">{{ o.username}}</a></li>
-    </ul>
+    <div class="card-header">
+        En linea
+    </div>
+    <div class="card-body">
+        <ul class="online-users">
+            <li *ngFor="let o of users">
+                <img [src]="avatarUrl+o.avatar" width="40px">
+                <div>
+                    <a [routerLink]="['/u', o.id]">{{ o.name}} {{ o.lastname}}</a>
+                    <a [routerLink]="['/chat', o.id]" class="btn-message">⌨️</a>
+                </div>
+            </li>
+        </ul>
+    </div>
 </div>

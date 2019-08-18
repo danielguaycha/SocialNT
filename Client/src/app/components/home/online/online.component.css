@@ -1,0 +1,33 @@
+.btn-message {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.online-users {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.online-users li {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.online-users li img {
+    margin-right: 8px;
+    border-radius: 50%;
+}
+.online-users li a {
+    font-size: .8em;
+}
+
+
+.online-users li > div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

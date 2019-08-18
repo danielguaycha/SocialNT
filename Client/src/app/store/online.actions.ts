@@ -7,3 +7,8 @@ export const newUser = createAction(
     '[Online Page] New',
     props<{ user: any }>()
 );
+
+export const removeUser = createAction(
+    '[Online Page] Remove',
+    props<{username: string}>()
+);

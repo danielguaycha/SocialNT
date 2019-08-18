@@ -29,7 +29,7 @@ export class SocketService {
     this.socket.emit('chat-message', message);
   }
 
-   getMessages = () => {
+  getMessages = () => {
     return new Observable(observer => {
       this.socket.on('chat-message', (data) => {
           observer.next(data);
@@ -40,6 +40,30 @@ export class SocketService {
   getOnlineUsers = () => {
     return new Observable(observer => {
       this.socket.on('online', (data) => {
+        observer.next(data);
+      });
+    });
+  };
+
+  setOfflineUser = () => {
+    return new Observable(observer => {
+      this.socket.on('offline', (data) => {
+        observer.next(data);
+      });
+    });
+  }
+
+  getNotifications = () => {
+    return new Observable(observer => {
+      this.socket.on('notify', (data) => {
+        observer.next(data);
+      });
+    });
+  }
+
+  getNewMessage = () => {
+    return new Observable(observer => {
+      this.socket.on('new-message', (data) => {
         observer.next(data);
       });
     });

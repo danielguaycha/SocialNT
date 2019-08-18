@@ -35,7 +35,8 @@ app.use('/api', require('./routes/reaction'));
 app.use('/api', require('./routes/comment'));
 app.use('/api', require('./routes/notification'));
 
-new SocketServer(io).socketConfig();
+global.socketServer = new SocketServer(io);
+socketServer.socketConfig();
 
 server.listen(process.env.PORT, () => {
     console.log(`Servidor iniciado en el puerto ${ process.env.PORT }`);    

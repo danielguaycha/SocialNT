@@ -94,7 +94,7 @@ import { ResetPasswordConfirmComponent } from './components/reset-password/reset
     FaceRegisterComponent,
     FacialLoginComponent,
     ResetPasswordComponent,
-    ResetPasswordConfirmComponent,    
+    ResetPasswordConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -103,7 +103,7 @@ import { ResetPasswordConfirmComponent } from './components/reset-password/reset
     FormsModule,
     ReactiveFormsModule,
     MomentModule,
-    StoreModule.forRoot({ online: fromOnlineReducer.reducer }),
+    StoreModule.forRoot({online: fromOnlineReducer.reducer}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [
