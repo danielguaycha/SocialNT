@@ -20,7 +20,11 @@ class SocketServer {
                 //console.log(`Message To ${data.user_emitter.username} (${this.users[data.user_emitter.username]}) :: ${data.text}`);
                 this.io.to(this.users[data.user_receiver]).emit('chat-message', data)
                 this.io.to(this.users[data.user_receiver]).emit('new-message', data.user_emitter.username)
-            })  
+            });
+
+            client.on('writing', (data) => { 
+                this.io.to(this.users[data.user_receiver]).emit('writing', data)
+            })
             
             client.on('disconnect', () => {
                 const u = this.deleteByValue(client.id); 

@@ -29,6 +29,10 @@ export class SocketService {
     this.socket.emit('chat-message', message);
   }
 
+  writing(data) {
+    this.socket.emit('writing', data);
+  }
+
   getMessages = () => {
     return new Observable(observer => {
       this.socket.on('chat-message', (data) => {
@@ -64,6 +68,14 @@ export class SocketService {
   getNewMessage = () => {
     return new Observable(observer => {
       this.socket.on('new-message', (data) => {
+        observer.next(data);
+      });
+    });
+  }
+
+  getWritingUser = () => {
+    return new Observable(observer => {
+      this.socket.on('writing', (data) => {
         observer.next(data);
       });
     });

@@ -12,68 +12,20 @@ import * as actions from './../../../store/online.actions';
 export class OnlineComponent implements OnInit {
 
   private avatarUrl;
-  private tempUsers;
-  private fistLoad;
   private auth;
   private users;
+
   constructor(private socketService: SocketService,
               private userService: UserService,
               private store: Store<{number: number, users: any}>) {
     this.avatarUrl = Config.avatar;
-    this.tempUsers = [];
     this.auth = userService.getUser();
-    this.fistLoad = true;
 
   }
   ngOnInit() {
-    this.subscribe();
     this.store.select('online').subscribe(state => {
         this.users = state.users;
     });
-  }
-  subscribe() {
-    this.socketService.getOnlineUsers().subscribe((data: any) => {
-      console.log(data);
-      for (const username of Object.keys(data)) {
-        const index = this.users.findIndex(user => user.username === username);
-        if (index < 0) {
-          if (this.fistLoad) {
-            this.tempUsers.push(username);
-          } else {
-            this.loadOneUser(username);
-          }
-        }
-      }
-      if (this.fistLoad) {
-        this.loadAllUsers();
-      }
-    });
-
-    this.socketService.setOfflineUser().subscribe( (data: any) => {
-      this.store.dispatch(actions.removeUser({username: data.username}));
-    });
-  }
-
-  loadAllUsers() {
-    if (!this.fistLoad) { return; }
-    this.userService.getUsersForOnline(this.tempUsers).subscribe(res => {
-      if (res.ok) {
-        for (const u of res.data) {
-          this.store.dispatch(actions.newUser({user: u}));
-        }
-        this.fistLoad = false;
-      }
-    }, err => console.log(err));
-  }
-
-  loadOneUser(username) {
-    if (this.fistLoad) { return; }
-    this.userService.getUserForOnline(username).subscribe(res => {
-      if (res.ok) {
-        // this.onlineUsers.push(res.data);
-        this.store.dispatch(actions.newUser({ user: res.data }));
-      }
-    }, err => console.log(err));
   }
 
 }

@@ -30,6 +30,7 @@
 
         </div>
       </div>
+      <div><small *ngIf="writingMessage">{{ writingMessage }}</small></div>
     </div>
     <div class="card-footer">
       <form #sendMessageForm="ngForm" (ngSubmit)="sendMessage(sendMessageForm)" class="form-group d-flex">
@@ -37,6 +38,7 @@
                class="form-control"
                name="text" required
                #text="ngModel"
+               (keypress)="writing($event)"
                [(ngModel)]="message.text"
                placeholder="Ingrese un mensaje">
         <button type="submit" [disabled]="!sendMessageForm.form.valid">Enviar</button>

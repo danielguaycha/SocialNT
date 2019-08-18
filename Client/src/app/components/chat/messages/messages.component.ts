@@ -4,6 +4,7 @@ import {UserService} from '../../../services/user.service';
 import {NgForm} from '@angular/forms';
 import {MessageService} from '../../../services/message.service';
 import {SocketService} from '../../../services/socket.service';
+import {isCommonJsExportStatement} from '@angular/compiler-cli/ngcc/src/host/commonjs_host';
 
 @Component({
   selector: 'app-messages',
@@ -13,12 +14,15 @@ import {SocketService} from '../../../services/socket.service';
 export class MessagesComponent implements OnInit, OnChanges {
 
   @Input() user !: any;
-
+  @Output() reload = new EventEmitter();
   private selectedUser;
   public avatarUrl;
   public messagesList;
   public auth;
   public message;
+
+  public writingMessage;
+
   constructor(private userService: UserService,
               private messageService: MessageService,
               private socketService: SocketService) {
@@ -29,17 +33,27 @@ export class MessagesComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    if (!this.user) {return}
+    if (!this.user) { return; }
     this.loadChat(this.user);
     this.socketService.getMessages().subscribe((data: any) => {
       this.messagesList.push(data);
+      this.writingMessage = null;
       this.scrollBottom();
     });
+    this.writingSubscribe();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.user = changes.user.currentValue;
     this.loadChat(this.user);
+  }
+
+  writingSubscribe() {
+    this.socketService.getWritingUser().subscribe((data: any) => {
+       if (data.user_emitter.username === this.selectedUser.username) {
+         this.writingMessage = data.user_emitter.name + ' está escribiendo...';
+       }
+    });
   }
 
   sendMessage(sendMessageForm: NgForm) {
@@ -92,7 +106,18 @@ export class MessagesComponent implements OnInit, OnChanges {
     });
   }
 
-  @Output() reload = new EventEmitter();
+  writing($event) {
+    this.socketService.writing({
+      user_emitter: {
+        avatar: this.auth.avatar,
+        lastname: this.auth.lastname,
+        name: this.auth.name,
+        username: this.auth.username
+      },
+      user_receiver: this.selectedUser.username
+    });
+  }
+
   reloadUser() {
     this.reload.emit({reload: 'true'});
   }
