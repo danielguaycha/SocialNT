@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-let sequelize = new Sequelize('socialnt', 'postgres' , '12345', 
+let sequelize = new Sequelize('socialnt', 'socialnt' , '12345', 
     {  host: 'localhost', dialect: 'postgres', logging: false  }) 
 
 // Install models

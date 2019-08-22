@@ -43,8 +43,8 @@ module.exports = {
         if(page< 1)
             page = 1;
 
-        const offset = (page-1) * pageSize
-        const limit = pageSize    
+        const offset = (page-1) * pageSize;
+        const limit = parseInt(pageSize);    
         return {
             offset, limit
         } 

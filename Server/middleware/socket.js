@@ -32,6 +32,12 @@ class SocketServer {
                 console.log(`User ${u} disconnected with id ${client.id}`);
                 console.log(`Online`, this.users);
             })           
+
+            client.on('logout', (data) => {
+                console.log(`${data.username} is logget`);
+                delete this.users[data.username];      
+                this.io.emit('offline', {username: data.username});          
+            })
         });
     }    
 

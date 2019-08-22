@@ -1,56 +1,70 @@
-<nav class="navbar navbar-expand-sm navbar-light bg-light" *ngIf="auth">
-  <a class="navbar-brand" routerLink="/home">{{ title }}</a>
-  <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-      aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavId">
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/home">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item"  routerLinkActive="active">
-        <a class="nav-link" routerLink="/marketplace/all">MarketPlace</a>
-      </li>
-      <li class="nav-item"  routerLinkActive="active">
-        <a class="nav-link" routerLink="/chat" (click)="newMessage = false">Mensajes
-          <span class="notify-point" *ngIf="newMessage"></span>
-        </a>
-      </li>
-      <li class="nav-item"  routerLinkActive="active">
-        <a class="nav-link" routerLink="/notify" (click)="newNotify = false">Notificaciones
-          <span class="notify-point" *ngIf="newNotify"></span>
-        </a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0" #searchForm="ngForm" (ngSubmit)="searchUser(searchForm)">
-      <input class="form-control mr-sm-2"
-        type="text"
-        name="search"
-        [(ngModel)]="search"
-        placeholder="@usuario | nombre">
-      <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Buscar</button>
-    </form>
-    <ul class="nav navbar navbar-right">
-      <li class="avatar">
+<nav class="navbar navbar-expand-sm navbar-dark" *ngIf="auth">
+  <div class="container">
+      <a class="navbar-brand logo" routerLink="/home">
+        <img src="assets/img/logo.png" alt="">
+      </a>
+      <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+          aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavId">
+        <ul class="navbar-nav mr-auto">
 
-      </li>
-      <li class="dropdown">
+          <li class="nav-item item-search">
+              <form class="form-search" #searchForm="ngForm" (ngSubmit)="searchUser(searchForm)">
+                  <div class="txt-search">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                      <input
+                        type="text"
+                        name="search"
+                        [(ngModel)]="search"
+                        placeholder="Buscar" />  
+                  </div>
+                        
+                </form>
+          </li>
+          
+          <li class="nav-item"  routerLinkActive="active">
+            <a class="nav-link" routerLink="/notify" (click)="newNotify = false">
+              <i class="fa fa-bell" aria-hidden="true"></i>
+              <span class="notify-point" *ngIf="newNotify"></span>
+            </a>
+          </li>
 
-          <button class="btn dropdown-toggle" data-display="static" type="button"  data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">
-                {{ auth.name }}
-              </button>
-          <div class="dropdown-menu  dropdown-menu-lg-right" aria-labelledby="triggerId">
-            <a class="dropdown-item" [routerLink]="['/u', auth.id ]">Mi Perfil</a>
-            <a class="dropdown-item" routerLink="/profile/config">Mis Datos</a>
-            <div class="dropdown-divider"></div>
-
-            <button class="dropdown-item" href="#" (click)="logout()">Cerrar Sesión</button>
-          </div>
-      </li>
-    </ul>
+          <li class="nav-item"  routerLinkActive="active">
+              <a class="nav-link" routerLink="/chat" (click)="newMessage = false">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span class="notify-point" *ngIf="newMessage"></span>
+              </a>
+            </li>
+        </ul>
+      
+        <ul class="nav navbar navbar-right">
+          <li class="avatar">
+    
+          </li>
+          <li class="dropdown">
+    
+              <button class="btn-user dropdown-toggle" data-display="static" type="button"  data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                    <span>
+                      {{ auth.name }} 
+                    </span>
+                    <img [src]="avatarUrl+auth.avatar" width="28px" class="rounded-circle">
+                  </button>
+              <div class="dropdown-menu  dropdown-menu-lg-right" aria-labelledby="triggerId">
+                <a class="dropdown-item" [routerLink]="['/u', auth.id ]">Mi Perfil</a>
+                <a class="dropdown-item" routerLink="/register/facial">Reconocimiento Facial</a>
+                <a class="dropdown-item" routerLink="/profile/config">Mis Datos</a>
+                <div class="dropdown-divider"></div>
+    
+                <button class="dropdown-item" href="#" (click)="logout()">Cerrar Sesión</button>
+              </div>
+          </li>
+        </ul>
+      </div>
   </div>
+  
 </nav>
 
 <div class="container mt-3 mb-4">

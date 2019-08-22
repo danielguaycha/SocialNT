@@ -15,14 +15,24 @@ export class SocketService {
   constructor(userService: UserService) {
     this.url = Config.server;
     this.auth = userService.getUser();
+    this.socket = io(this.url);
+    this.newUser();
+  }
 
+  newUser() {
     if (this.auth !== null) {
-      this.socket = io(this.url);
       this.socket.emit('new-user', {nick: this.auth.username }, data => {
         console.log('connecting');
         console.log(data);
       });
     }
+  }
+
+  newUserByUsername(username) {
+      this.socket.emit('new-user', {nick: username }, data => {
+        console.log('connecting');
+        console.log(data);
+      });
   }
 
   sendMessage(message) {
@@ -31,6 +41,14 @@ export class SocketService {
 
   writing(data) {
     this.socket.emit('writing', data);
+  }
+
+  offline(username) {
+    this.socket.emit('offline', {username});
+  }
+
+  disconnect(username){
+    this.socket.emit('logout', {username});
   }
 
   getMessages = () => {
@@ -47,7 +65,7 @@ export class SocketService {
         observer.next(data);
       });
     });
-  };
+  }
 
   setOfflineUser = () => {
     return new Observable(observer => {

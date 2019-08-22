@@ -1,9 +1,9 @@
 <div class="messages-content">
-  <div class="card">
-    <div class="card-header" *ngIf="selectedUser">
+  <div class="box">
+    <div class="box-header liner" *ngIf="selectedUser">
       <div class="d-flex align-items-center">
-        <img src="{{ avatarUrl+selectedUser.avatar}}" width="40px" class="mr-2">
-        <div>
+        <img src="{{ avatarUrl+selectedUser.avatar}}" width="40px" class="rounded-circle mr-2">
+        <div class="user-chat-selected">
           <a [routerLink]="['/u', selectedUser.id ]">
             {{ selectedUser.name }} {{ selectedUser.lastname }}
           </a>
@@ -11,6 +11,9 @@
       </div>
     </div>
     <div class="card-body" id="message-content">
+        <div *ngIf="!selectedUser" class="text-center text-muted">
+            Busque o seleccione un usuario para iniciar el chat!
+        </div>
       <div *ngFor="let m of messagesList">
         <div [class]="'mb-2 d-flex align-items-center '+(m.emitter === auth.id? 'justify-content-end': '')">
           <div class="mr-2">
@@ -31,18 +34,22 @@
         </div>
       </div>
       <div><small *ngIf="writingMessage">{{ writingMessage }}</small></div>
-    </div>
-    <div class="card-footer">
-      <form #sendMessageForm="ngForm" (ngSubmit)="sendMessage(sendMessageForm)" class="form-group d-flex">
-        <input type="text"
-               class="form-control"
-               name="text" required
-               #text="ngModel"
-               (keypress)="writing($event)"
-               [(ngModel)]="message.text"
-               placeholder="Ingrese un mensaje">
-        <button type="submit" [disabled]="!sendMessageForm.form.valid">Enviar</button>
-      </form>
-    </div>
+      </div>
+      <div class="box-footer" *ngIf="selectedUser">
+        <form #sendMessageForm="ngForm" (ngSubmit)="sendMessage(sendMessageForm)" class="form-group d-flex">
+          <input type="text"
+                class="form-control"
+                name="text" required
+                #text="ngModel"
+                (keypress)="writing($event)"
+                [(ngModel)]="message.text"
+                placeholder="Ingrese un mensaje">
+          <button type="submit" class="btn btn-primary" [disabled]="!sendMessageForm.form.valid">
+            <i class="fa fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+
+      
   </div>
 </div>

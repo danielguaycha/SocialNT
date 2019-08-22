@@ -1,31 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="93995b22-7702-4acb-a1e3-a0307f8fb324" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Php-Server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Php-Server.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CommentController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ReactionController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bootstrap/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/bootstrap/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_05_18_194709_create_market_places_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_05_18_194709_create_market_places_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_07_23_155723_create_comments_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_07_23_155723_create_comments_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/controllers/follow.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/controllers/follow.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/controllers/publications.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/controllers/publications.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/controllers/reaction.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/controllers/reaction.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/controllers/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/controllers/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/db.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/models/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/routes/publication.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/routes/publication.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/server.js" afterDir="false" />
-    </list>
+    <list default="true" id="93995b22-7702-4acb-a1e3-a0307f8fb324" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +19,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/api.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="122">
+            <state relative-caret-position="209">
               <caret line="11" column="34" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
             </state>
           </provider>
@@ -53,7 +29,7 @@
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MarketController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="364">
-              <caret line="104" column="25" selection-start-line="104" selection-start-column="25" selection-end-line="104" selection-end-column="25" />
+              <caret line="108" column="25" selection-start-line="108" selection-start-column="25" selection-end-line="108" selection-end-column="25" />
               <folding>
                 <element signature="e#134#1122#0#PHP" />
                 <element signature="e#1128#2239#0#PHP" />
@@ -189,7 +165,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -219,6 +194,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -226,7 +202,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/.env" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="D:/Code/Laravel/Mentor" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
@@ -267,16 +243,17 @@
       <workItem from="1564524120210" duration="121000" />
       <workItem from="1564609234662" duration="1050000" />
       <workItem from="1565389917681" duration="3226000" />
+      <workItem from="1566270005976" duration="44000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12977000" />
+    <option name="totallyTimeSpent" value="13021000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15658094" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15885022" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -408,7 +385,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/api.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
+        <state relative-caret-position="209">
           <caret line="11" column="34" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
         </state>
       </provider>
@@ -416,7 +393,7 @@
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MarketController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="364">
-          <caret line="104" column="25" selection-start-line="104" selection-start-column="25" selection-end-line="104" selection-end-column="25" />
+          <caret line="108" column="25" selection-start-line="108" selection-start-column="25" selection-end-line="108" selection-end-column="25" />
           <folding>
             <element signature="e#134#1122#0#PHP" />
             <element signature="e#1128#2239#0#PHP" />

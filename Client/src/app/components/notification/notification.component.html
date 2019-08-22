@@ -1,20 +1,31 @@
 
-
-<div>
-    <h6>Tus notificaciones</h6>
-    <ul class="notifies">
-        <li *ngFor="let n of notifies">
-            <a [routerLink]="['/u', n.fromUser.id]">
-                <img [src]="avatarUrl+n.fromUser.avatar" width="40px">
-            </a>
-            <div>
-                <a routerLink="{{n.url}}"><div [innerHTML]="n.description"></div></a>
-                <small class="text-muted">{{ n.created_at | amTimeAgo }}</small>
+<div class="row">
+    <div class="col-md-3">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="col-md-8">
+        <div class="box">
+            <div class="box-header liner-title">
+                <h6>Tus notificaciones</h6>
             </div>
-        </li>
-    </ul>
-    <div>
-        <spiner [loader]="loader"></spiner>
-        <button class="btn btn-link btn-block" (click)="getNotifications()" *ngIf="!loader && showMore">Ver más</button>
+            <div class="box-body">
+                    <ul class="notifies">
+                            <li *ngFor="let n of notifies">
+                                <a [routerLink]="['/u', n.fromUser.id]">
+                                    <img [src]="avatarUrl+n.fromUser.avatar" width="40px">
+                                </a>
+                                <div>
+                                    <a routerLink="{{n.url}}"><div [innerHTML]="n.description"></div></a>
+                                    <small class="text-muted">{{ n.created_at | amTimeAgo }}</small>
+                                </div>
+                            </li>
+                        </ul>
+                        <div>
+                            <spiner [loader]="loader"></spiner>
+                            <button class="btn btn-link btn-block" (click)="getNotifications()" *ngIf="!loader && showMore">Ver más</button>
+                        </div>
+            </div>
+        </div>
+       
     </div>
 </div>

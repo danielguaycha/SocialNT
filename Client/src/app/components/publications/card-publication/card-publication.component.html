@@ -1,18 +1,19 @@
-<div class="card mt-2" >
-    <div class="card-header d-flex align-items-center justify-content-between">
-        <div class="d-flex align-items-center">
+<div class="box m-0" >
+    <div class="box-header">
+        <div class="publicaction-user">
             <img [src]="avatar+publication.user.avatar" class="rounded-circle mr-2" width="40px" height="40px">
-            <div class="d-flex flex-column">
+            <div>
                 <b><a [routerLink]="['/u', publication.user.id ]">{{ publication.user.name }} {{ publication.user.lastname }}</a></b>
                 <small>{{ publication.created_at | amParseZone  |amTimeAgo  }}</small>
             </div>
         </div>
-        <div *ngIf="auth.id == publication.user_id">
-            <button class="btn btn-danger btn-sm" (click)="removePublication(publication.id)">Eliminar</button>
+        <div>
+            <div *ngIf="auth.id == publication.user_id">
+                <button class="btn-init text-init" (click)="removePublication(publication.id)"><i class="fa fa-trash-alt"></i>  </button>
+            </div>
         </div>
-
-    </div>
-    <div class="card-body publication">
+    </div> 
+    <div class="box-body publication">
         <div>{{ publication.text }}</div>
         <img [src]="imgPublic+publication.image" alt="" *ngIf="publication.image" width="100%">
     </div>

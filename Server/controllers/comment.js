@@ -92,11 +92,12 @@ function getComments(req, res){
     let lo = fn.limit_offset(page, limit);
 
     Comment.findAll({
-        attributes: ['id', 'text', 'parent', 'publication_id', 'market_id', 'created_at'],
-        limit: lo.limit, offset: lo.offset,
+        attributes: ['id', 'text', 'parent', 'publication_id', 'market_id', 'created_at'],    
         where,
         include: { model: User, as: 'commentor', attributes: ['id', 'username', 'name' ,'lastname', 'avatar']},
-        order: [['created_at', 'desc']]
+        order: [['created_at', 'desc']],
+        subQuery: false,
+        limit: lo.limit, offset: lo.offset
     }).then(comments => {
         return fn.object(res, { ok:true, comments})
     }).catch(err => {

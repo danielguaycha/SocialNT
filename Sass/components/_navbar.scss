@@ -1,0 +1,61 @@
+.navbar-content{
+    background: darken($primary, 20);
+}
+
+.navbar {
+    background: $primary;
+    padding: 0 1rem !important;
+    .logo {
+        img {
+            width: 40px;
+        }
+    }
+}
+.nav-item {
+    text-align: center;
+    @include desktop {
+        margin: 0 1rem;
+    }
+}
+.item-search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.txt-search {
+    background: darken($primary, 10);
+    color: rgba(white, .73);
+    padding: 0 1rem;
+    border-radius: 12px;
+    input {
+        background: darken($primary, 10);
+        border: none;    
+        padding: .2rem .5rem;
+        color: white;
+        &:active, &:focus {
+            outline: none;
+        }
+        &::placeholder {
+            color: rgba(white, .73);
+        }
+    }
+}
+
+.btn-user {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    color: rgba(white, .8);
+    margin-bottom: 1rem;
+    span {
+        margin-right: 1rem;
+    }
+    @include movil {
+        margin-bottom: 0;
+    }
+    &:hover {
+        background: darken($primary, 5);
+    }
+}

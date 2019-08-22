@@ -3,9 +3,8 @@
   position: relative;
 }
 .card-body{
-  min-height: 350px;
-  max-height: 350px;
   overflow-y: auto;
+  max-height: 351px;
 }
 
 .msg-date {

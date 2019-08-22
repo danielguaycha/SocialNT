@@ -1,33 +1,45 @@
-<div class="card">
-    <div class="card-header">
-        Login
-    </div>
-    <div class="card-body">
-        <form action="" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
-            <input type="email" 
-                name="email"
-                #email="ngModel"
-                [(ngModel)]="user.email" required
-                placeholder="Correo Electrónico" class="form-control">
-            <br>
-            <input type="password"
-                    name="password"
-                    #password="ngModel"
-                    [(ngModel)]="user.password"  required
-                    placeholder="Ingrese Contraseña" class="form-control">
-            <br>
-            <spiner [loader]="loader"></spiner>
-            <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid">Iniciar Sesion</button>
-            <a type="button" class="btn btn-secondary" routerLink="/login/facial">Iniciar con rostro</a>
-        </form>
-    </div>
-    <div class="card-footer">
-        <div>
-            No tienes una cuenta? 
-            <a routerLink="/register"> Registrate</a>
-        </div>
-        <div>
-            <a routerLink="/reset_password">Olvide mi contraseña</a>
-        </div>
+<div class="row">
+    <div class="col-lg-6 offset-lg-3">
+            <div class="box">
+                    <div class="box-header text-center">
+                        <h5 class="login-title">Iniciar Sesión</h5>
+                    </div>
+                    <div class="box-body text-center">
+                        <div class="mb-2">
+                            <img src="assets/img/logo.png" width="80px">
+                        </div>
+                        <form action="" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+                            <input type="email" 
+                                name="email"
+                                #email="ngModel"
+                                [(ngModel)]="user.email" required
+                                placeholder="Correo Electrónico" class="form-control">
+                            <br>
+                            <input type="password"
+                                    name="password"
+                                    #password="ngModel"
+                                    [(ngModel)]="user.password"  required
+                                    placeholder="Ingrese Contraseña" class="form-control">
+                            <br>
+                            <spiner [loader]="loader"></spiner>
+                            <button type="submit" class="btn btn-primary mr-1" [disabled]="!loginForm.form.valid">
+                                <i class="fa fa-sign-in-alt"></i>
+                                 Iniciar Sesion</button>
+                            <a  class="btn btn-secondary ml-1" routerLink="/login/facial">
+                                <i class="fa fa-camera"></i> 
+                                Iniciar con rostro</a>
+                        </form>
+                    </div>
+                    <div class="box-footer text-center login-links">
+                        <div>
+                            ¿No tienes una cuenta? 
+                            <a routerLink="/register"> Registrate</a>
+                        </div>
+                        <div>
+                            <a routerLink="/reset_password">Olvide mi contraseña</a>
+                        </div>
+                    </div>
+                </div>
     </div>
 </div>
+

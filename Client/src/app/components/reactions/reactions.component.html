@@ -1,20 +1,22 @@
-<div class="card-footer">
-  <div class="reactions-content">
-    <div class="reactions">
-      <button class="btn btn-sm" data-toggle="modal"
-              (click)="loadReactionsChild()"
-              [attr.data-target]="'#reactionsModal'+pubId">
-        {{ reactions }}
-      </button>
-      <button class="btn" (click)="addReaction()" >❤️Like</button>
-    </div>
-    <div class="comments">
-      <button class="btn" (click)="loadComments()">🗨️ Comentar</button>
-    </div>
+<div class="reaction-main">
+
+
+<div class="reactions-content">
+  <div class="reactions">
+    <button class="btn-init mr-0" (click)="addReaction()" ><i class="fa fa-heart"></i></button>
+    <button class="btn-init" data-toggle="modal"
+            (click)="loadReactionsChild()"
+            [attr.data-target]="'#reactionsModal'+pubId">
+      {{ reactions }}
+    </button>
+  </div>
+  <div class="comments">
+    <button class="btn-init" (click)="loadComments()"><i class="fa fa-comment"></i>  </button>
   </div>
 </div>
 <app-comment [pubId]="pubId" type="pub" [showed]="showComments"></app-comment>
 <app-view-reactions [pubId]="pubId" type="pub"></app-view-reactions>
 
+</div>
 
 

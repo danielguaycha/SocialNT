@@ -1,24 +1,29 @@
 <div class="row">
-  <div class="col-md-4 pr-1">
-    <div class="card">
-      <div class="card-header ">
-        {{title}}
+  <div class="col-md-3">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="col-md-3 p-0">
+    <div class="box">
+      <div class="box-header">
+        
         <div class="search-chat-user">
-          <form #searchForm="ngForm" (ngSubmit)="findUser()" class="form-group d-flex">
+          <div>
+              {{title}}
+          </div>
+          <form #searchForm="ngForm" (ngSubmit)="findUser()">
             <input type="text" class="form-control" name="query"
                    #query="ngModel"
-                   [(ngModel)]="querySearch"  placeholder="Ingrese usuario">
-            <button type="submit">Buscar</button>
+                   [(ngModel)]="querySearch"  placeholder="Buscar usuario">           
           </form>
         </div>
       </div>
-      <div class="card-body user-list-content">
+      <div class="box-body user-list-content">
 
         <!-- Lista de mensajes de usuarios -->
         <div class="user-list" *ngIf="messageEmitters && users.length == 0">
           <ul style="list-style: none; padding: 0">
             <li *ngFor="let m of messageEmitters">
-                <div class="user-chat" [routerLink]="['/chat', m.id]">
+                <div class="user-chat" routerLinkActive="active" [routerLink]="['/chat', m.id]">
                   <img src="{{ avatarUrl+m.avatar}}" width="40px" class="rounded-circle mr-2">
                   <div class="user-chat-body">
                     <span *ngIf="m.id !== auth.id" class="mr-2">{{ m.name }}</span>
@@ -48,7 +53,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-8 p-0">
+  <div class="col-md-6 p-0">
     <app-messages (reload)="getMessagesUser()"  user="{{ userId }}"></app-messages>
   </div>
 </div>

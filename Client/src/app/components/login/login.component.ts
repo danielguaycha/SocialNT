@@ -3,6 +3,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import {NgForm} from '@angular/forms';
+import {SocketService} from '../../services/socket.service';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
 
   constructor(public userService: UserService,
               public alert: AlertService,
+              public socket: SocketService,
               public router: Router) {
       if (this.userService.getUser() && this.userService.getToken()) {
           this.router.navigate(['/home']);
@@ -39,6 +41,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('user', JSON.stringify(this.loginUser));
           localStorage.setItem('token', this.token);
           this.loader = true;
+          this.socket.newUserByUsername(res.data.user.username);
           this.router.navigate(['/home']);
       }
 

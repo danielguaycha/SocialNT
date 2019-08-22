@@ -1,5 +1,5 @@
-<div class="card">
-    <div class="card-body">
+
+    <!-- <div class="card-body">
         <div class="text-center">
             <img [src]="avatar+user.avatar" alt="{{ user.name }}" width="50%" class="rounded-circle" *ngIf="user.avatar">
         </div>
@@ -10,13 +10,14 @@
           <a [routerLink]="['/followeds', user.id ]" class="card-link text-center">{{ stats.followed }} <div><small>Siguiendo</small></div></a>
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <div class="">
-    <ul>
-      <li><a [routerLink]="['/u', user.id ]">Perfil</a></li>
-      <li><a href="#">Fotos</a></li>
-      <li><a routerLink="/marketplace/all">MarketPlace</a></li>
-      <li><a routerLink="/chat">Mensajes</a></li>
+  <ul class="sidebar-menu">
+      <li><a [routerLink]="['/u', user.id ]"><i class="fa fa-home" aria-hidden="true"></i> Perfil</a></li>
+      <li> <a routerLink="/home"><i class="fa fa-newspaper" aria-hidden="true"></i> Noticias</a></li>
+      <li><a routerLink="/chat"><i class="fa fa-envelope"></i> Mensajes</a></li>
+      <li>
+        <a [routerLink]="['/followers', user.id]"><i class="fa fa-user-check"></i> Seguidores</a>
+      </li>
+      <li><a routerLink="/marketplace/all"><i class="fa fa-shopping-bag"></i> MarketPlace</a></li>
     </ul>
-  </div>

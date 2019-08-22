@@ -6,11 +6,3 @@
   display: flex;
   align-items: center;
 }
-
-.comments {
-
-}
-
-.card-footer {
-  border-bottom: 1px solid rgba(0,0,0,.125);
-}

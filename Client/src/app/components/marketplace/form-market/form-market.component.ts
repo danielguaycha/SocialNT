@@ -24,12 +24,12 @@ export class FormMarketComponent implements OnInit {
               private alertService: AlertService) {
     this.auth = userService.getUser();
     this.market = {
-      title: 'Hola',
-      description: 'Desc',
-      category_id: 2,
-      price: 12.2,
+      title: '',
+      description: '',
+      category_id: '',
+      price: 0,
       image: null,
-      dir: 'Machala, El Oro'
+      dir: ''
     };
   }
   ngOnInit() {
