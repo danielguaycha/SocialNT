@@ -1,8 +1,24 @@
 
     <ul class="sidebar-menu">
+
         <li routerLinkActive="active"><a routerLink="/marketplace/all"><i class="fa fa-list-alt"></i> Explorar</a></li>
         <li routerLinkActive="active"><a routerLink="/marketplace/buying"><i class="fa fa-shopping-cart"></i> Compra</a></li>
         <li routerLinkActive="active"><a routerLink="/marketplace/selling"><i class="fa fa-shopping-bag"></i> Venta</a></li>
         <li routerLinkActive="active"><a routerLink="/marketplace/saved"><i class="fa fa-archive"></i> Articulos Guardados</a></li>
-        <a routerLink="/marketplace/sell" class="btn btn-block btn-sm btn-primary mt-4">Vender Algo</a>
+        <li routerLinkActive="active" class="mt-2"><a routerLink="/home"><i class="fa fa-home"></i> Home</a></li>
     </ul>
+    <div class="px-3 ml-lg-1">
+        <a routerLink="/marketplace/sell" class="btn btn-block btn-primary mt-lg-4 mb-2">Vender Algo</a>
+    </div>
+    <div class="box ml-lg-1 mt-4">
+        <div class="box-header">
+            <h6>Categorías</h6>
+        </div>
+        <div class="box-body">
+            <ul class="categories">
+                <li *ngFor="let c of categories">
+                    <button (click)="searchCategory(c.id)" ><i class="fa fa-cube"></i>&nbsp;{{ c.name }}</button>
+                </li>
+            </ul>
+        </div>
+    </div>

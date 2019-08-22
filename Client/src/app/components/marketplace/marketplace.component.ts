@@ -53,17 +53,19 @@ export class MarketplaceComponent implements OnInit {
   }
 
   search(category) {
-    if (!this.querySearch) {
+
+    if (!this.querySearch && !category.category) {
       this.init();
       this.getAllMarkets();
       return;
     }
 
+
     this.init();
     this.loader = true;
     let request;
-    if (category && !this.querySearch) {
-      request =  this.marketService.getAllMarkets(this.page, this.limitPerPage, null, category, null);
+    if (category.category && !this.querySearch) {
+      request =  this.marketService.getAllMarkets(this.page, this.limitPerPage, null, category.category, null);
     } else {
       request =  this.marketService.getAllMarkets(this.page, this.limitPerPage, null, null, this.querySearch);
     }

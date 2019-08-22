@@ -1,21 +1,19 @@
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
-    host: "smtp.mailtrap.io",
-    port: 465,
-    secure: false, // true for 465, false for other ports
+    service: 'Gmail',
     auth: {
-      user: "3d9af5e02d3b80", // generated ethereal user
-      pass: "19fa012c26c4ca" // generated ethereal password
+      user: "bboy.ixio@gmail.com", // generated ethereal user
+      pass: "0929421204" // generated ethereal password
     }
 });
 
 async function sendConfirmMail(to, user, user_id, token){
     
     let info = await transporter.sendMail({
-        from: `"${user} 👻" <admin@socialnt.com>`, // sender address
+        from: `"${user} 👻" <admin@rs.com>`, // sender address
         to, // list of receivers
-        subject: "Confirma tu cuenta SocialNT",
+        subject: "Confirma tu cuenta RS",
         text: "Listo para empezar", 
         html: `
             <b>Confirma tu cuenta</b>
@@ -31,7 +29,7 @@ async function sendConfirmMail(to, user, user_id, token){
 async function sendResetPasswordMail(to, token){
     
     let info = await transporter.sendMail({
-        from: `"👻" <admin@socialnt.com>`, // sender address
+        from: `"👻" <admin@rs.com>`, // sender address
         to, // list of receivers
         subject: "Recuperación de contraseña",
         text: "Recupera tu contraseña", 

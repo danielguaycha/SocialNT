@@ -55,6 +55,7 @@ import { FaceRegisterComponent } from './components/register/face-register/face-
 import { FacialLoginComponent } from './components/login/facial-login/facial-login.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { ResetPasswordConfirmComponent } from './components/reset-password/reset-password-confirm/reset-password-confirm.component';
+import { ContactComponent } from './components/home/contact/contact.component';
 
 
 @NgModule({
@@ -94,7 +95,8 @@ import { ResetPasswordConfirmComponent } from './components/reset-password/reset
     FaceRegisterComponent,
     FacialLoginComponent,
     ResetPasswordComponent,
-    ResetPasswordConfirmComponent
+    ResetPasswordConfirmComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,

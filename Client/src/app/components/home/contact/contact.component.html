@@ -1,0 +1,17 @@
+<div class="box">
+    <div class="box-header flex-column">
+        <h6>Contactos</h6>
+        <small class="text-muted">Recientemente seguidos</small>
+    </div>
+    <div class="box-body">
+        <ul class="online-users">
+            <li *ngFor="let o of contactList" class="online-user">
+                <img [src]="avatarUrl+o.person.avatar" width="40px">
+                <div>
+                    <a [routerLink]="['/u', o.person.id]">{{ o.person.name}} {{ o.person.lastname}}</a>
+                    <a [routerLink]="['/chat', o.person.id]" class="btn-message btn-send-message"><i class="fa fa-comment-dots"></i></a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

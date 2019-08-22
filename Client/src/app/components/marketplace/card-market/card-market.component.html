@@ -17,14 +17,15 @@
                         (click)="removeItem(market.market_save)">Eliminar</button>
             </div>
         </div>
-        <div class="card-body">
+        <div class="card-body market-detail">
             <a [routerLink]="['/marketplace/item/', market.id ]"><h5 class="card-title">{{ market.title }}</h5></a>
             <p class="market-info">
-                <small class="text-muted">{{ market.created_at | amTimeAgo}}</small>
-                <small class="text-muted">{{ market.dir }}</small>
+                <small class="text-muted"><i class="fa fa-clock"></i>&nbsp;{{ market.created_at | amTimeAgo}}</small>
+                <small class="text-muted"><i class="fa fa-map-marker-alt"></i>&nbsp;{{ market.dir }}</small>
             </p>
             <div class="market-price">
-                <b>${{ market.price }}</b>
+                <b *ngIf="market.price > 0">${{ market.price }}</b>
+                <b *ngIf="market.price === 0">GRATIS</b>
             </div>
         </div>
     </div>

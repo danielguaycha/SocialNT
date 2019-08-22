@@ -2,25 +2,7 @@
     text-align: center;
     background: gray;
 }
-.popup {
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-    background: #fffbf6;
-    border: 1px solid #ffd7d7;
-    padding: 1rem;
-    border-radius: 10px
-}
-.popup-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.popup-close {
-    border: none;
-    background: none;
-    font-weight: bold;
-}
+
 .notify-point {
     width: 7px;
     height: 7px;

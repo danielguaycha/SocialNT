@@ -1,8 +1,8 @@
 <div class="row">
-    <div class="col-md-3 p-0">
-        <app-sidebar-market></app-sidebar-market>
+    <div class="col-md-3">
+        <app-sidebar-market (viewCategory)="search($event)"></app-sidebar-market>
     </div>
-    <div class="col-md-9 ">
+    <div class="col-md-9 p-0">
         <!--    Buscador    -->
 
         <div class="mb-2">

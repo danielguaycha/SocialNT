@@ -31,6 +31,7 @@ export class OnlineComponent implements OnInit {
   }
   ngOnInit() {
     this.store.select('online').subscribe(state => {
+        this.users = [];
         this.users = state.users;
     });
 
