@@ -2,8 +2,8 @@ require('./config'); // cargamos el archivo de configuraciens globales
 const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io');
+const morgan = require('morgan');
 
-const parser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const path = require('path');
 const SocketServer = require('./middleware/socket');
@@ -13,9 +13,10 @@ const server = http.createServer(app);
 const io = socketIO(server);
 
 app.use(express.static(path.resolve(__dirname, './public')));
-app.use(parser.urlencoded({ extended: false }));
-app.use(parser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(fileUpload());
+app.use(morgan('dev'));
 
 // middlewares
 app.use((req, res, next) => {
@@ -39,5 +40,6 @@ global.socketServer = new SocketServer(io);
 socketServer.socketConfig();
 
 server.listen(process.env.PORT, () => {
-    console.log(`Servidor iniciado en el puerto ${ process.env.PORT }`);    
+    console.log(`Servidor iniciado en el puerto ${ process.env.PORT }`);   
 })
+

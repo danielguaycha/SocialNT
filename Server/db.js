@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize');
-let sequelize = new Sequelize('socialnt', 'socialnt' , '12345', 
-    {  host: 'localhost', dialect: 'postgres', logging: false  }) 
+let sequelize = new Sequelize('socialnt', 'postgres' , '123', 
+    {  host: 'localhost', dialect: 'postgres', logging: false  }) ;
+
+
 
 // Install models
 global.Op = Sequelize.Op;
@@ -33,12 +35,14 @@ Object.values(models)
   .filter(model => typeof model.associate === "function")
   .forEach(model => model.associate(models));
 
-//sequelize.authenticate().then( () => {
-    //console.log(`Good`);
-//}).catch(err => {
-    //console.log(`Error`);
-//})
-
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log(`Good`);
+  })
+  .catch((err) => {
+    console.log(`Error`);
+  });
 
   
 
