@@ -1,10 +1,15 @@
+const dotenv = require( 'dotenv');
+dotenv.config();
+
 const nodemailer = require("nodemailer");
+const mailUser = process.env.MAIL_USER || 'mail@gmail.com';
+const mailPw = process.env.MAIL_PASSWORD || '123';
 
 const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-      user: "bboy.ixio@gmail.com", // generated ethereal user
-      pass: "0929421204" // generated ethereal password
+      user: mailUser, // generated ethereal user
+      pass: mailPw // generated ethereal password
     }
 });
 

@@ -1,8 +1,15 @@
+const dotenv = require('dotenv');
+dotenv.config();
 const Sequelize = require('sequelize');
-let sequelize = new Sequelize('socialnt', 'postgres' , '123', 
-    {  host: 'localhost', dialect: 'postgres', logging: false  }) ;
 
+const db = process.env.DB_DATABASE || 'socialnt';
+const driver = process.env.DB_DRIVER || 'postgres';
+const password = process.env.DB_PASSWORD || '1234';
+const host = process.env.DB_HOST || 'localhost';
+const port = process.env.DB_PORT || 5432;
 
+let sequelize = new Sequelize(db, driver, password,
+    {  host, dialect: 'postgres', logging: false, port  }) ;
 
 // Install models
 global.Op = Sequelize.Op;
@@ -38,10 +45,10 @@ Object.values(models)
 sequelize
   .authenticate()
   .then(() => {
-    console.log(`Good`);
+    console.log(`Connected to ${db} on port ${port}`);
   })
   .catch((err) => {
-    console.log(`Error`);
+    console.log(`Error`, err.message);
   });
 
   

@@ -16,7 +16,7 @@ app.use(express.static(path.resolve(__dirname, './public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(fileUpload());
-app.use(morgan('dev'));
+//app.use(morgan('dev'));
 
 // middlewares
 app.use((req, res, next) => {
@@ -41,5 +41,5 @@ socketServer.socketConfig();
 
 server.listen(process.env.PORT, () => {
     console.log(`Servidor iniciado en el puerto ${ process.env.PORT }`);   
-})
+});
 
